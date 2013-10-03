@@ -1,0 +1,2240 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Go",
+				"GObject"
+			],
+			[
+				"sight",
+				"sight_angle"
+			],
+			[
+				"origin",
+				"originPlayer"
+			],
+			[
+				"new",
+				"new_args	(local, instance)"
+			],
+			[
+				"TER",
+				"TERMINAL_KEY	(attribute, instance)"
+			],
+			[
+				"angle",
+				"angle_error	(attribute, instance)"
+			],
+			[
+				"Gun",
+				"GunWeapon	(global, class)"
+			],
+			[
+				"player",
+				"player_id	(attribute, instance)"
+			],
+			[
+				"visi",
+				"visible_players	(attribute, instance)"
+			],
+			[
+				"map",
+				"map_file	(local, instance)"
+			],
+			[
+				"start",
+				"start_merc_pids	(local, instance)"
+			],
+			[
+				"occlu",
+				"occlusion_polygon"
+			],
+			[
+				"visible",
+				"visible_objects	(attribute, instance)"
+			],
+			[
+				"action",
+				"__actionable_items	(attribute, instance)"
+			],
+			[
+				"norm",
+				"__norm_to_cell(coord)	(attribute, function)"
+			],
+			[
+				"__orig",
+				"__orig_posy	(attribute, instance)"
+			],
+			[
+				"compute",
+				"compute_sight_polygon_coords"
+			],
+			[
+				"max",
+				"max_speedx	(attribute, instance)"
+			],
+			[
+				"wall",
+				"wall_x_pos	(local, instance)"
+			],
+			[
+				"isobs",
+				"is_obs_by_dy	(local, instance)"
+			],
+			[
+				"isob",
+				"is_obs_by_dy	(local, instance)"
+			],
+			[
+				"is_o",
+				"is_obstacle_from_cell_coords(row, col)	(attribute, function)"
+			],
+			[
+				"sigh",
+				"sight_range	(attribute, instance)"
+			],
+			[
+				"pos",
+				"posy	(attribute, instance)"
+			],
+			[
+				"mpo",
+				"mpos_x"
+			],
+			[
+				"obsta",
+				"obstacles_in_sight	(attribute, instance)"
+			],
+			[
+				"obstac",
+				"obstacles_in_sight"
+			],
+			[
+				"callb",
+				"callback_args	(local, instance)"
+			],
+			[
+				"geom",
+				"geometric_line	(local, instance)"
+			],
+			[
+				"__forobst",
+				"__for_obstacle_in_range(vector, callback, callback_args)	(attribute, function)"
+			],
+			[
+				"callba",
+				"callback_result"
+			],
+			[
+				"geo",
+				"geometric_line"
+			],
+			[
+				"exp",
+				"expected_posy	(local, instance)"
+			],
+			[
+				"sp",
+				"speedy"
+			],
+			[
+				"set_",
+				"set_movement_speedx(pid, speedx)	(attribute, function)"
+			],
+			[
+				"map_test",
+				"map_test_scinded"
+			],
+			[
+				"load",
+				"load_map"
+			],
+			[
+				"move",
+				"movement_array	(local, instance)"
+			],
+			[
+				"__get",
+				"__get_normalized_direction_vector_from_angle(a)	(attribute, function)"
+			],
+			[
+				"num",
+				"numpy  (module)"
+			],
+			[
+				"ori",
+				"original_health	(local, instance)"
+			],
+			[
+				"id",
+				"id_p2	(local, instance)"
+			],
+			[
+				"sh",
+				"shoot(pid, angle)	(attribute, function)"
+			],
+			[
+				"as",
+				"assert	(keyword, instance)"
+			],
+			[
+				"if",
+				"if	If Condition"
+			],
+			[
+				"impem",
+				"implementation"
+			],
+			[
+				"po",
+				"posy	(attribute, instance)"
+			],
+			[
+				"__act",
+				"__actionable_item_key_from_row_col  (function)"
+			],
+			[
+				"obs",
+				"obs_n"
+			],
+			[
+				"blorg",
+				"blorg_points"
+			],
+			[
+				"compl",
+				"complex_test"
+			],
+			[
+				"simple",
+				"simple_test"
+			],
+			[
+				"exe",
+				"execute_shell_and_get_stdout"
+			],
+			[
+				"fir",
+				"first_newl"
+			],
+			[
+				"html",
+				"html_building_without_a_apply_templates"
+			],
+			[
+				"open",
+				"openingTagLen"
+			],
+			[
+				"tmp",
+				"tmpstring"
+			],
+			[
+				"opening",
+				"openingTagPtr"
+			],
+			[
+				"aft",
+				"after"
+			],
+			[
+				"after",
+				"afterSize"
+			],
+			[
+				"ht",
+				"html_builder"
+			],
+			[
+				"APPL",
+				"APPLY_TEMPLATES_STR_LEN"
+			],
+			[
+				"APPLY_",
+				"APPLY_TEMPLATES_STR"
+			],
+			[
+				"string",
+				"stringstream"
+			],
+			[
+				"XSL",
+				"XSLElement"
+			],
+			[
+				"args",
+				"args_str"
+			],
+			[
+				"ar",
+				"args_str"
+			],
+			[
+				"fail",
+				"fail_counter"
+			],
+			[
+				"element",
+				"element_getters"
+			],
+			[
+				"testg",
+				"testGetSpaceSeparatedChildrenList"
+			],
+			[
+				"att",
+				"attrMapa"
+			],
+			[
+				"mo",
+				"moving_ennemy_x"
+			],
+			[
+				"mpos",
+				"mpos_y"
+			],
+			[
+				"get",
+				"getPoints"
+			],
+			[
+				"set",
+				"setMousePos  (function)"
+			],
+			[
+				"Sight",
+				"PolygonSightView"
+			],
+			[
+				"draw",
+				"draw_obs"
+			],
+			[
+				"def",
+				"defs	Method"
+			],
+			[
+				"ind",
+				"indices"
+			],
+			[
+				"Doc",
+				"DocumentVectorEntry"
+			],
+			[
+				"occ",
+				"occurences"
+			],
+			[
+				"term",
+				"termId"
+			],
+			[
+				"Documen",
+				"DocumentVectorEntry"
+			],
+			[
+				"Docu",
+				"DocumentVectorSet"
+			],
+			[
+				"p",
+				"pop()	E"
+			],
+			[
+				"fore",
+				"fore	for (each)"
+			],
+			[
+				"My",
+				"MyBlockIndexer"
+			],
+			[
+				"isquic",
+				"is_quickreg_form"
+			],
+			[
+				"ISquic",
+				"IS_QUICKREG_FORM"
+			],
+			[
+				"pass",
+				"password2"
+			],
+			[
+				"x",
+				"x1  (variable)"
+			],
+			[
+				"l",
+				"l2  (variable)"
+			],
+			[
+				"__si",
+				"__sight_points  (variable)"
+			],
+			[
+				"final",
+				"final_points"
+			],
+			[
+				"COlor",
+				"color_index"
+			],
+			[
+				"mail",
+				"mailOptions"
+			],
+			[
+				"delete",
+				"deleteReq"
+			],
+			[
+				"event",
+				"event_name"
+			],
+			[
+				"switc",
+				"switchPlugDC"
+			],
+			[
+				"enable",
+				"enableGravity"
+			],
+			[
+				"drawi",
+				"drawingOffsetY"
+			],
+			[
+				"drawin",
+				"drawingOffsetX"
+			],
+			[
+				"JUMP",
+				"JUMP_IMPULSE"
+			],
+			[
+				"WEIRD",
+				"WEIRD_CONSTANT"
+			],
+			[
+				"drawingoff",
+				"drawingOffsetY"
+			],
+			[
+				"for",
+				"for	for i=1,10"
+			],
+			[
+				"tpl",
+				"tplengine"
+			],
+			[
+				"getting",
+				"gettingStartedRH"
+			],
+			[
+				"req",
+				"reqjs	js_sql_query"
+			],
+			[
+				"res",
+				"responseSender"
+			],
+			[
+				"par",
+				"params"
+			],
+			[
+				"head",
+				"writeHead"
+			],
+			[
+				"evmoni",
+				"eventsMonitor"
+			],
+			[
+				"evemo",
+				"eventsMonitor"
+			],
+			[
+				"Strin",
+				"StringBuilder"
+			],
+			[
+				"createDi",
+				"createDirectIndex"
+			],
+			[
+				"Field",
+				"FieldTermProcessor"
+			],
+			[
+				"padin",
+				"padding-top"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"win",
+				"windspeedKmph"
+			],
+			[
+				"div",
+				"div	Tag"
+			],
+			[
+				"wea",
+				"weatherIconUrl"
+			],
+			[
+				"sen",
+				"sensor_type"
+			],
+			[
+				"even",
+				"eventHandler"
+			],
+			[
+				"se",
+				"sensor_type"
+			],
+			[
+				"sensor",
+				"sensor_type"
+			],
+			[
+				"to",
+				"toSwitch"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "dealmonitorgui.py",
+			"settings":
+			{
+				"buffer_size": 1400,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dealmonitor.glade",
+			"settings":
+			{
+				"buffer_size": 18983,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "class MininovaSpider(CrawlSpider):\n\n    name = 'mininova.org'\n    allowed_domains = ['mininova.org']\n    start_urls = ['http://www.mininova.org/today']\n    rules = [Rule(SgmlLinkExtractor(allow=['/tor/\\d+']), 'parse_torrent')]\n\n    def parse_torrent(self, response):\n        x = HtmlXPathSelector(response)\n\n        torrent = TorrentItem()\n        torrent['url'] = response.url\n        torrent['name'] = x.select(\"//h1/text()\").extract()\n        torrent['description'] = x.select(\"//div[@id='description']\").extract()\n        torrent['size'] = x.select(\"//div[@id='info-left']/p[2]/text()[2]\").extract()\n        return torrent",
+			"file": "scraper/spider.py",
+			"file_size": 626,
+			"file_write_time": 1380818074000000,
+			"settings":
+			{
+				"buffer_size": 626,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scrapy/dealmonitor/items.py",
+			"settings":
+			{
+				"buffer_size": 379,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 132.0,
+		"selected_items":
+		[
+			[
+				"add",
+				"Project: Add Folder"
+			],
+			[
+				"addp",
+				"Package Control: Add Repository"
+			],
+			[
+				"proje",
+				"Project: Save As"
+			],
+			[
+				"ssxml",
+				"Set Syntax: XML"
+			],
+			[
+				"ssini",
+				"Set Syntax: INI"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"project",
+				"Project: Add Folder"
+			],
+			[
+				"projec",
+				"Project: Add Folder"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"proj",
+				"Project: Add Folder"
+			],
+			[
+				"PROJ",
+				"Project: Save As"
+			],
+			[
+				"sspy",
+				"Set Syntax: Python"
+			],
+			[
+				"ssp",
+				"Set Syntax: PHP"
+			],
+			[
+				"diff",
+				"FileDiffs: Menu"
+			],
+			[
+				"websec",
+				"WebSequenceDiagrams"
+			],
+			[
+				"webs",
+				"WebSequenceDiagrams"
+			],
+			[
+				"webse",
+				"WebSequenceDiagrams"
+			],
+			[
+				"web",
+				"WebSequenceDiagrams"
+			],
+			[
+				"codin",
+				"SublimeCodeIntel: Disable Live Autocompletion for Current Language"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"codint",
+				"SublimeCodeIntel: Disable Live Autocompletion for Current Language"
+			],
+			[
+				"ssphp",
+				"Set Syntax: PHP"
+			],
+			[
+				"ssjson",
+				"Set Syntax: JSON"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"ssql",
+				"Set Syntax: SQL"
+			],
+			[
+				"indent",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"sscss",
+				"Set Syntax: CSS"
+			],
+			[
+				"sssql",
+				"Set Syntax: SQL"
+			],
+			[
+				"ssq",
+				"Set Syntax: SQL"
+			],
+			[
+				"settings",
+				"Preferences: Settings - User"
+			],
+			[
+				"ssjs",
+				"Set Syntax: JSON"
+			],
+			[
+				"enable",
+				"Package Control: Enable Package"
+			],
+			[
+				"disab",
+				"Package Control: Disable Package"
+			],
+			[
+				"package",
+				"Package Control: Disable Package"
+			],
+			[
+				"pack",
+				"Package Control: Disable Package"
+			],
+			[
+				"packa",
+				"Package Control: List Packages"
+			],
+			[
+				"plugi",
+				"SublimeCodeIntel: Enable Plugin"
+			],
+			[
+				"upd",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"codinsa",
+				"SublimeCodeIntel: Disable Plugin"
+			],
+			[
+				"DIFF",
+				"FileDiffs: Menu"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"sspro",
+				"Set Syntax: Prolog"
+			],
+			[
+				"upda",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ssxm",
+				"Set Syntax: XML"
+			],
+			[
+				"ssx",
+				"Set Syntax: XML"
+			],
+			[
+				"ssr",
+				"Set Syntax: Ruby"
+			],
+			[
+				"ssph",
+				"Set Syntax: PHP"
+			],
+			[
+				"gdb",
+				"Package Control: Disable Package"
+			],
+			[
+				"clang",
+				"Preferences: SublimeClang Settings – Default"
+			],
+			[
+				"clan",
+				"Preferences: SublimeClang Settings – Default"
+			],
+			[
+				"bra",
+				"Bracket Highlighter: Show Bracket String Escape Mode"
+			],
+			[
+				"brac",
+				"Bracket Highlighter: Swap Brackets"
+			],
+			[
+				"bracket",
+				"Bracket Highlighter: Fold by Brackets"
+			],
+			[
+				"brack",
+				"Bracket Highlighter: Match Brackets"
+			],
+			[
+				"stack",
+				"Stackoverflow: Search from Input"
+			],
+			[
+				"Clang",
+				"Preferences: SublimeClang Settings – Default"
+			],
+			[
+				"console",
+				"SublimeGDB: Open Console View"
+			],
+			[
+				"disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"pac",
+				"Package Control: Enable Package"
+			],
+			[
+				"cl",
+				"Preferences: SublimeClang Settings – User"
+			],
+			[
+				"instal",
+				"Preferences: SublimeClang Settings – Default"
+			],
+			[
+				"Insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 440.0
+	},
+	"console":
+	{
+		"height": 266.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": true
+	},
+	"file_history":
+	[
+		"/home/troll/Downloads/deal-monitor/scraper/item.py",
+		"/home/troll/Dropbox/spylight-tutore/client/map_view.py",
+		"/home/troll/Dropbox/spylight-tutore/tests/map_test.hfm",
+		"/home/troll/Dropbox/spylight-tutore/server/stoppable_thread.py",
+		"/home/troll/Dropbox/spylight-tutore/server/spylight.cfg",
+		"/home/troll/Dropbox/spylight-tutore/client/constants.py",
+		"/tmp/xa-Mn8Edr/scheduler.py",
+		"/home/troll/Dropbox/spylight-tutore/common/game_constants.py",
+		"/home/troll/Dropbox/st2/st2profile/Packages/User/Distraction Free.sublime-settings",
+		"/home/troll/Dropbox/st2/st2profile/Packages/User/Preferences.sublime-settings",
+		"/home/troll/Dropbox/st2/st2profile/Packages/Default/Preferences.sublime-settings",
+		"/home/troll/Dropbox/spylight-tutore/tests/game_engine.py",
+		"/home/troll/Dropbox/spylight-tutore/occlusion-cleaner.py",
+		"/home/troll/Dropbox/spylight-tutore/old/occlusion.py",
+		"/home/troll/Dropbox/spylight-tutore/occlusion.py",
+		"/home/troll/Dropbox/spylight-tutore/common/utils.py",
+		"/home/troll/Dropbox/spylight-tutore/common/map_parser.py",
+		"/home/troll/Dropbox/spylight-tutore/server/game_engine.py",
+		"/home/troll/Dropbox/spylight-tutore/test2.hfm",
+		"/home/troll/Dropbox/spylight-tutore/server/config_helper.py",
+		"/home/troll/Dropbox/spylight-tutore/common/slmap.py",
+		"/home/troll/Dropbox/spylight-tutore/test.hfm",
+		"/home/troll/Dropbox/spylight-tutore/tests/conf_test.ini",
+		"/home/troll/Dropbox/spylight-tutore/spylight.sublime-project",
+		"/home/troll/Dropbox/Projets/mozilla/code/mozmill/mutt/mutt/tests/python/usemozmill.py",
+		"/home/troll/Dropbox/Projets/mozilla/code/mozmill/mutt/mutt/tests/python/testprofilepath.py",
+		"/home/troll/Dropbox/Projets/mozilla/code/mozmill/mutt/mutt/tests/python/testmultiplerun.py",
+		"/home/troll/Dropbox/Projets/mozilla/code/mozmill/mutt/mutt/tests/python/js-tests/new_empty_function.js",
+		"/home/troll/Dropbox/Projets/mozilla/code/mozmill/mutt/mutt/tests/python/js-tests/test_persisted.js",
+		"/home/troll/Dropbox/st2/st2profile/Packages/User/SublimeRope.sublime-settings",
+		"/home/troll/Dropbox/st2/st2profile/Packages/User/JSON.sublime-settings",
+		"/home/troll/Dropbox/st2/st2profile/Packages/SublimeRope/SublimeRope.sublime-settings",
+		"/home/troll/Dropbox/st2/st2profile/Packages/SublimeRope/README.markdown",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/blorg/tests/simple7.html",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/blorg/tests/simple2.xml",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/blorg/tests/simple1.xml",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple3.html",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple3.xsl",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple3.xml",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple2.xsl",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple2.html",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple1.xsl",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple1.xml",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple1.html",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/xsl/html_builder.h",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/nbProject/GL/Makefile",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/data_structures/document.cpp",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/data_structures/element.h",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/AnalyseurXML/commun.h",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/data_structures/node.cpp",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/AnalyseurXML/xml.l",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/AnalyseurXML/xml.y",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/td1.md",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/data_structures/element.cpp",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/element_getters.cpp",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/to_xml.cpp",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/sisoa/title Diagramme Séquence Détaillé CU10.wsd",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/test_utils.cpp",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/AnalyseurXML/struct_donnees_xml.h",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/nbProject/GL/build/Release/GNU-Linux-x86/_ext/1885770270/child_elt.o.d",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/test_utils.h",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/indexing/BlockLexiconBuilder.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/DirectInvertedOutputStream.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/indexing/Indexer.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/indexing/singlepass/Inverted2DirectIndexBuilder.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/DocumentIndex.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/indexing/DocumentPostingList.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/DirectIndexInputStream.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/TermsToVectorInputStream.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/applications/desktop/DesktopTerrier.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/indexing/MyBlockIndexer.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/indexing/BlockDocumentPostingList.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/indexing/BlockIndexer.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/BlockDirectIndex.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/DirectIndex.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/BitPostingIndex.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/postings/WritablePosting.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/postings/Posting.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/compression/BitOut.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/BitPostingIndexInputStream.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/indexing/MyIndexer.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/seralization/FixedSizeTextFactory.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/seralization/FixedSizeWriteableFactory.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/seralization/WriteableFactory.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/seralization/package.html",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/BitIndexPointer.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/structures/PostingIndex.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/indexing/MySFC.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/terms/TermPipeline.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/indexing/SimpleFileCollection.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/applications/desktop/IndexFolders.java",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/qir/qir-terrier/src/core/org/terrier/indexing/Document.java",
+		"/home/troll/Dropbox/st2/st2profile/Packages/User/dashes.sublime-snippet",
+		"/home/troll/pcw/web/scripts.js",
+		"/home/troll/pcw/web/style/quickreg_form.css",
+		"/home/troll/pcw/web/includes/templates/quickreg_form.tpl",
+		"/home/troll/pcw/web/includes/gettpl.php",
+		"/home/troll/pcw/web/scripts.dev.js",
+		"/home/troll/pcw/web/forum/member.php",
+		"/home/troll/pcw/web/includes/common.php",
+		"/home/troll/pcw/web/forum/global.php",
+		"/home/troll/pcw/web/forum/inc/plugins/spamalyser.php",
+		"/home/troll/pcw/web/forum/admin/index.php",
+		"/home/troll/pcw/web/forum/inc/plugins/spamalyser/sp_admin.php",
+		"/home/troll/pcw/web/includes/config.php",
+		"/home/troll/pcw/web/admin/index.php",
+		"/home/troll/pcw/web/forum/inc/functions.php",
+		"/home/troll/pcw/web/members.php",
+		"/home/troll/pcw/web/forum/thickbox.html",
+		"/home/troll/Dropbox/Projets/fzpatch/filezilla/src/interface/settings/optionspage_interface.cpp",
+		"/home/troll/Dropbox/Projets/fzpatch/filezilla/src/interface/settings/optionspage_interface (troll-fixe-ubuntu's conflicted copy 2012-10-01).cpp",
+		"/home/troll/Dropbox/Projets/fzpatch/filezilla/src/engine/crypto.cpp",
+		"/home/troll/Dropbox/Projets/fzpatch/filezilla/src/engine/crypto (troll-fixe-ubuntu's conflicted copy 2012-10-01).cpp",
+		"/home/troll/Dropbox/Projets/fzpatch/filezilla/src/engine/server (troll-fixe-ubuntu's conflicted copy 2012-10-01).cpp",
+		"/home/troll/Dropbox/Projets/fzpatch/filezilla/src/engine/server.cpp",
+		"/home/troll/pcw/web/includes/templates/page.tpl",
+		"/home/troll/Dropbox/spylight/test.py",
+		"/home/troll/Dropbox/spylight/spylight.kv",
+		"/home/troll/Dropbox/spylight/occlusion.py",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/sql/sql_test_data.txt",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/server/mainserver_simulator.js",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/server/server.js",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/server/android_notif_server.js",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/server/spy.js",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/client/scheduler.js",
+		"/home/troll/Dropbox/st2/st2profile/Packages/User/js_sql_query_2.sublime-snippet",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/server/server.key",
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code/js/client/sseListener.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"*.py",
+			"*.*",
+			"*.java",
+			"*.tpl, *.html, *.php, *.css",
+			"*.tpl, *.html, *.php",
+			"*.cpp, *.h",
+			"*.tpl, *.php, *.js",
+			"*.tpl, *.php",
+			"*.py, *kv",
+			"*.py",
+			"*.js,-*node_modules/*",
+			"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code/js/server",
+			"*.js",
+			"*.lua",
+			"*.html,-footer.html",
+			"*.html,-header.html",
+			"*.js",
+			"*.sql",
+			"*.js",
+			"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code/js/server/, -node_modules/*",
+			"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code/js/server/",
+			"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code/js/server/*.js",
+			"*.js",
+			"*.html",
+			"*.java",
+			"*.h,*.c",
+			".c, .h",
+			"",
+			"\\n",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"box_categ",
+			"main_quit",
+			"gtk",
+			"0.0, [^0]",
+			"kv file",
+			"player_updates",
+			"start_auto_mode",
+			"start_auto",
+			"self.__game_finished",
+			"get_remaining_time",
+			"ge = self",
+			"__start_time",
+			"move_angle",
+			"MineWeapon",
+			"item.type",
+			"MineAI",
+			"spawn",
+			"SPY",
+			"spy",
+			"Spy",
+			"spy",
+			"Spy",
+			"set_movement_angle",
+			"move_angle",
+			"p",
+			"info(",
+			"merc",
+			"mercernary",
+			"merc",
+			"        start_merc_pids = 0 # firt merc pid to be assigned\n        end_merc_pids = self.slmap.nb_players[0]-1 # Last mercernary pid to be assigned\n",
+			"nb_players",
+			"__players",
+			"__setup_players",
+			"players",
+			"player",
+			"Player",
+			"player",
+			"Player",
+			"compute_sight_polygon_coords",
+			"occlusion",
+			"self.__norm_to_cell",
+			"self",
+			"occlusion_polygon",
+			"_range",
+			"obj",
+			"push_new_item",
+			"push_new_actionable_item",
+			"push_new_item",
+			"push_new_actionable_item",
+			"__actionable_items",
+			"l",
+			"__actionable_item_key_from_row_col",
+			"push_new_actionable_item",
+			"actionable",
+			"ActionableItem",
+			"                \n",
+			"pass",
+			"start",
+			"vect",
+			"sight_direction",
+			"p",
+			"x",
+			"MERC_SIGHT_RANGE",
+			"MAX_SPY_HP",
+			"100",
+			"SPY",
+			"spy",
+			"Spy",
+			"SPY",
+			"Spy",
+			"spy",
+			"Spy",
+			"100",
+			"sockopt",
+			"62",
+			"sight_polygon_coords",
+			"x",
+			"widht",
+			"row",
+			"10",
+			"ValueError",
+			"10",
+			"        wall_x_pos = 5 * const.CELL_SIZE\n",
+			"speedy",
+			"expected_posx",
+			"x",
+			"y",
+			"x",
+			"is_obstacle",
+			"x",
+			"100",
+			"sightrange",
+			"sight_triangle_height",
+			"sight_triangle_width",
+			"mpos_y",
+			"mpos_x",
+			"sight_triangle_width",
+			"mpos_y",
+			"mpos_x",
+			"__for_obstacle_in_range",
+			"self.w",
+			"p[1]",
+			"p[0]",
+			"y",
+			"45",
+			"-45",
+			"3",
+			"players[0]",
+			"100",
+			"expected_posx",
+			"posy",
+			"posx",
+			"x",
+			"0",
+			"x",
+			"movAngle",
+			"p1",
+			"player",
+			"AliasProperty",
+			"1",
+			"tuple",
+			"vector",
+			"normalized_direction_vector",
+			"1",
+			"0",
+			"1",
+			"p",
+			"SP_SP1"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"0.0,\\n 0",
+			"utils.norm_to_cell",
+			"self.__$1",
+			"def __$1",
+			", ",
+			"$2.$1@insa-lyon.fr",
+			"string $1::toXML() const {",
+			"virtual string toXML() const;",
+			"Element::createElement(",
+			"",
+			"<li>$1</li>",
+			"#testButton",
+			"// console.log(",
+			".new",
+			"Right",
+			"self:setState($1)",
+			"\\t",
+			"{{> header}}	\n<",
+			">\n{{> footer}}",
+			"{{> footer}}",
+			"{{> header}}",
+			"shared_data.get_shared_data(\"SENSORS_VALUES\")",
+			"\\n",
+			",\\n",
+			"for(var $1 in",
+			"$1var $2 =",
+			",\\n",
+			"\\t",
+			"",
+			"* @author H4102",
+			"	",
+			"    ",
+			"\\\"",
+			"Fünf",
+			"UK",
+			"DE",
+			"Node.colorNames",
+			"\\varepsilon",
+			"\\theta",
+			"$to",
+			"Pair",
+			"newPassword",
+			"\\t",
+			"",
+			"== $this->NIL",
+			"",
+			"=",
+			"_log",
+			"LOG",
+			"None",
+			"INFTY",
+			"False",
+			"True",
+			"",
+			"sz",
+			"maxsize",
+			", ",
+			"x",
+			"y",
+			"free",
+			"\\n\\t\\t\\t\\t\\t",
+			"occupy",
+			"rm -vf $1",
+			"cp -v $1 ~/Dropbox/Projets/fzpatch/filezilla/src/engine/",
+			"cp -v $1 ~/Dropbox/Projets/fzpatch/filezilla/engine/",
+			" cryptopp/",
+			"",
+			".o",
+			"NBYTESOFPLLENGTH",
+			"NBYTESSOFPLLENGTH",
+			"$1# print",
+			"#$1print",
+			"#print",
+			"\\t",
+			"conn",
+			"",
+			"\\t",
+			"\\xi",
+			"\\\\cfrac{$1}{$2}",
+			"\\\\cfrac{\\1}{\\2}",
+			"\\cfrac{$1}{$2}",
+			"\\cfrac{1}{2}",
+			"dep",
+			"lon",
+			"\\theta",
+			"distToTarget",
+			"tmpDest",
+			"undef",
+			"playCurrentPlayerTurn",
+			"newNode",
+			"getCoopGridIndex",
+			"GetCoopGridIndex",
+			".",
+			"openList",
+			"closedList"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "dealmonitorgui.py",
+					"settings":
+					{
+						"buffer_size": 1400,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								654,
+								654
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dealmonitor.glade",
+					"settings":
+					{
+						"buffer_size": 18983,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "dealmonitor.glade",
+					"settings":
+					{
+						"buffer_size": 18983,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								913,
+								913
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "scraper/spider.py",
+					"settings":
+					{
+						"buffer_size": 626,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								626,
+								626
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "scrapy/dealmonitor/items.py",
+					"settings":
+					{
+						"buffer_size": 379,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								273,
+								273
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 29.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.539631805529,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 88.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"dealmonitor.glade"
+			],
+			[
+				"app",
+				"client/app.py"
+			],
+			[
+				"cfg",
+				"server/spylight.cfg"
+			],
+			[
+				"gameconst",
+				"common/game_constants.py"
+			],
+			[
+				"mapview",
+				"client/map_view.py"
+			],
+			[
+				"chara",
+				"client/character.py"
+			],
+			[
+				"game",
+				"client/game.py"
+			],
+			[
+				"spylight_request_handler.py",
+				"server/spylight_request_handler.py"
+			],
+			[
+				"testgame",
+				"tests/game_engine.py"
+			],
+			[
+				"gameeng",
+				"tests/game_engine.py"
+			],
+			[
+				"reques",
+				"server/spylight_request_handler.py"
+			],
+			[
+				"server",
+				"server/spylight_server.py"
+			],
+			[
+				"mapp",
+				"common/map_parser.py"
+			],
+			[
+				"map",
+				"common/map_parser.py"
+			],
+			[
+				"gameen",
+				"server/game_engine.py"
+			],
+			[
+				"mappar",
+				"common/map_parser.py"
+			],
+			[
+				"gamecons",
+				"common/game_constants.py"
+			],
+			[
+				"to",
+				"server/TODO.txt"
+			],
+			[
+				"step",
+				"server/stoppable_thread.py"
+			],
+			[
+				"scinded",
+				"tests/map_test_scinded.hfm"
+			],
+			[
+				"testga",
+				"tests/game_engine.py"
+			],
+			[
+				"utils",
+				"common/utils.py"
+			],
+			[
+				"mappa",
+				"common/map_parser.py"
+			],
+			[
+				"cons",
+				"client/constants.py"
+			],
+			[
+				"const",
+				"client/constants.py"
+			],
+			[
+				"sinded",
+				"tests/map_test_scinded.hfm"
+			],
+			[
+				"servergame",
+				"server/game_engine.py"
+			],
+			[
+				"mpp",
+				"common/map_parser.py"
+			],
+			[
+				"test",
+				"tests/game_engine.py"
+			],
+			[
+				"scinde",
+				"tests/map_test_scinded.hfm"
+			],
+			[
+				"maptesthf",
+				"/home/troll/Dropbox/spylight-tutore/tests/map_test_action.hfm"
+			],
+			[
+				"tests/game",
+				"tests/game_engine.py"
+			],
+			[
+				"map_parser",
+				"common/map_parser.py"
+			],
+			[
+				"servgamee",
+				"server/game_engine.py"
+			],
+			[
+				"mapa",
+				"tests/map_test_action.hfm"
+			],
+			[
+				"maptesth",
+				"tests/map_test.hfm"
+			],
+			[
+				"tesgame",
+				"tests/game_engine.py"
+			],
+			[
+				"hfm",
+				"tests/map_test.hfm"
+			],
+			[
+				"occ",
+				"spylight-tutore/old/occlusion.py"
+			],
+			[
+				"env",
+				"spylight-tutore/client/kv/environment.kv"
+			],
+			[
+				"envir",
+				"spylight-tutore/client/environment.py"
+			],
+			[
+				"testgamen",
+				"tests/game_engine.py"
+			],
+			[
+				"sind",
+				"tests/map_test_scinded.hfm"
+			],
+			[
+				"sergame",
+				"spylight-tutore/server/game_engine.py"
+			],
+			[
+				"mapsi",
+				"tests/map_test_scinded.hfm"
+			],
+			[
+				"gamen",
+				"spylight-tutore/server/game_engine.py"
+			],
+			[
+				"testapi",
+				"python/testapi.py"
+			],
+			[
+				"empty",
+				"python/js-tests/new_empty_function.js"
+			],
+			[
+				"loggerlis",
+				"python/test_loggerlistener.py"
+			],
+			[
+				"test_per",
+				"python/js-tests/test_persisted.js"
+			],
+			[
+				"multipl",
+				"geometry/multipolygon.py"
+			],
+			[
+				"impl",
+				"impl.py"
+			],
+			[
+				"geo/pol",
+				"geometry/polygon.py"
+			],
+			[
+				"ops",
+				"ops.py"
+			],
+			[
+				"pyx",
+				"occlusion.pyx"
+			],
+			[
+				"occlean",
+				"occlusion-cleaner.py"
+			],
+			[
+				"cli",
+				"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/blorg/cli"
+			],
+			[
+				"2xs",
+				"simple2.xsl"
+			],
+			[
+				"si3xs",
+				"simple3.xsl"
+			],
+			[
+				"si",
+				"simple1.xml"
+			],
+			[
+				"4h",
+				"simple4.html"
+			],
+			[
+				"4x",
+				"simple4.xml"
+			],
+			[
+				"4",
+				"simple4.xsl"
+			],
+			[
+				"si4",
+				"simple4.html"
+			],
+			[
+				"si3x",
+				"tests/simple3.xml"
+			],
+			[
+				"sim3",
+				"tests/simple3.xsl"
+			],
+			[
+				"simpl",
+				"tests/simple3.html"
+			],
+			[
+				"simple",
+				"tests/simple3.html"
+			],
+			[
+				"tests",
+				"tests/simple1.html"
+			],
+			[
+				"xslhtmlb",
+				"xsl/html_builder.cpp"
+			],
+			[
+				"simpl1",
+				"/home/troll/Dropbox/Documents/TP-IF/4IF/gl/code/tests/simple1.xml"
+			],
+			[
+				"element",
+				"data_structures/element.h"
+			],
+			[
+				"testht",
+				"tests/html_builder.cpp"
+			],
+			[
+				"xsbui",
+				"xsl/html_builder.h"
+			],
+			[
+				"elemh",
+				"data_structures/element.h"
+			],
+			[
+				"toxml",
+				"tests/to_xml.cpp"
+			],
+			[
+				"testshtml",
+				"tests/html_builder.cpp"
+			],
+			[
+				"elemencpp",
+				"data_structures/element.cpp"
+			],
+			[
+				"htmlb",
+				"xsl/html_builder.cpp"
+			],
+			[
+				"html",
+				"xsl/html_builder.cpp"
+			],
+			[
+				"testhtml",
+				"tests/html_builder.cpp"
+			],
+			[
+				"ele",
+				"data_structures/element.cpp"
+			],
+			[
+				"elem",
+				"data_structures/element.cpp"
+			],
+			[
+				"htmlbu",
+				"xsl/html_builder.h"
+			],
+			[
+				"elegetters",
+				"tests/element_getters.cpp"
+			],
+			[
+				"testtox",
+				"tests/to_xml.cpp"
+			],
+			[
+				"elemcpp",
+				"data_structures/element.cpp"
+			],
+			[
+				"elemen",
+				"data_structures/element.h"
+			],
+			[
+				"htmlbui",
+				"xsl/html_builder.cpp"
+			],
+			[
+				"tests/",
+				"tests/to_xml.cpp"
+			],
+			[
+				"htmlbuh",
+				"xsl/html_builder.h"
+			],
+			[
+				"htmlbuil",
+				"xsl/html_builder.cpp"
+			],
+			[
+				"main",
+				"main.cpp"
+			],
+			[
+				"makefile",
+				"makefile"
+			],
+			[
+				"maincpp",
+				"main.cpp"
+			],
+			[
+				"node",
+				"data_structures/node.h"
+			],
+			[
+				"xslele",
+				"data_structures/xsl_element.h"
+			],
+			[
+				"docu",
+				"data_structures/document.h"
+			],
+			[
+				"docum",
+				"data_structures/document.cpp"
+			],
+			[
+				"xsele",
+				"data_structures/xsl_element.cpp"
+			],
+			[
+				"make",
+				"makefile"
+			],
+			[
+				"documen",
+				"data_structures/document.cpp"
+			],
+			[
+				"xsl",
+				"data_structures/xsl_element.cpp"
+			],
+			[
+				"xsel",
+				"data_structures/xsl_element.h"
+			],
+			[
+				"xslel",
+				"data_structures/xsl_element.h"
+			],
+			[
+				"text",
+				"data_structures/text_node.cpp"
+			],
+			[
+				"eleme",
+				"data_structures/element.cpp"
+			],
+			[
+				"elementcpp",
+				"data_structures/element.cpp"
+			],
+			[
+				"elecpp",
+				"data_structures/element.cpp"
+			],
+			[
+				"commu",
+				"AnalyseurXML/commun.h"
+			],
+			[
+				"doccpp",
+				"data_structures/document.cpp"
+			],
+			[
+				"doch",
+				"data_structures/document.h"
+			],
+			[
+				"dtd",
+				"data_structures/dtd.h"
+			],
+			[
+				"chi",
+				"data_structures/child_elt.h"
+			],
+			[
+				"cj",
+				"nbProject/GL/nbproject/Makefile-Debug.mk"
+			],
+			[
+				"textnodeh",
+				"data_structures/text_node.h"
+			],
+			[
+				"textno",
+				"data_structures/text_node.cpp"
+			],
+			[
+				"elen",
+				"data_structures/element.cpp"
+			],
+			[
+				"testu",
+				"tests/test_utils.h"
+			],
+			[
+				"testut",
+				"tests/test_utils.cpp"
+			],
+			[
+				"eleh",
+				"data_structures/element.h"
+			],
+			[
+				"elgetter",
+				"tests/element_getters.cpp"
+			],
+			[
+				"elgeth",
+				"nbProject/GL/build/Release/GNU-Linux-x86/_ext/1885770270/child_elt.o.d"
+			],
+			[
+				"toxlh",
+				"AnalyseurXML/struct_donnees_xml.h"
+			],
+			[
+				"tesuti",
+				"tests/test_utils.h"
+			],
+			[
+				"elenget",
+				"tests/element_getters.cpp"
+			],
+			[
+				"elemenh",
+				"data_structures/element.h"
+			],
+			[
+				"tesutil",
+				"tests/test_utils.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 578.0,
+		"selected_items":
+		[
+			[
+				"shape",
+				"/home/troll/Shapely/shapely.sublime-project"
+			],
+			[
+				"shpe",
+				"/home/troll/Shapely/shapely.sublime-project"
+			],
+			[
+				"sh",
+				"/home/troll/Shapely/shapely.sublime-project"
+			],
+			[
+				"note",
+				"/home/troll/Dropbox/Documents/Notes-If/4IF/Notes-4IF.sublime-project"
+			],
+			[
+				"no",
+				"/home/troll/Dropbox/Documents/Notes-If/4IF/Notes-4IF.sublime-project"
+			],
+			[
+				"",
+				"/home/troll/love2d-physics-playground/l2dpp.sublime-project"
+			]
+		],
+		"width": 1024.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": false,
+	"side_bar_visible": true,
+	"side_bar_width": 225.0,
+	"status_bar_visible": true
+}
