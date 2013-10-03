@@ -520,14 +520,6 @@
 	"buffers":
 	[
 		{
-			"file": "dealmonitorgui.py",
-			"settings":
-			{
-				"buffer_size": 1400,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "dealmonitor.glade",
 			"settings":
 			{
@@ -550,7 +542,23 @@
 			"file": "scrapy/dealmonitor/items.py",
 			"settings":
 			{
-				"buffer_size": 379,
+				"buffer_size": 289,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scrapy/dealmonitor/spiders/spider.py",
+			"settings":
+			{
+				"buffer_size": 934,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/troll/Downloads/deal-monitor/add_job.py",
+			"settings":
+			{
+				"buffer_size": 623,
 				"line_ending": "Unix"
 			}
 		}
@@ -558,9 +566,13 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 132.0,
+		"height": 172.0,
 		"selected_items":
 		[
+			[
+				"close ",
+				"Project: Close"
+			],
 			[
 				"add",
 				"Project: Add Folder"
@@ -830,7 +842,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 440.0
+		"width": 478.0
 	},
 	"console":
 	{
@@ -847,6 +859,7 @@
 	},
 	"file_history":
 	[
+		"/home/troll/Downloads/deal-monitor/dealmonitorgui.py",
 		"/home/troll/Downloads/deal-monitor/scraper/item.py",
 		"/home/troll/Dropbox/spylight-tutore/client/map_view.py",
 		"/home/troll/Dropbox/spylight-tutore/tests/map_test.hfm",
@@ -973,8 +986,7 @@
 		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/server/spy.js",
 		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/client/scheduler.js",
 		"/home/troll/Dropbox/st2/st2profile/Packages/User/js_sql_query_2.sublime-snippet",
-		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/server/server.key",
-		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code/js/client/sseListener.js"
+		"/home/troll/Dropbox/Documents/TP-IF/4IF/ghome/code64bits/js/server/server.key"
 	],
 	"find":
 	{
@@ -1022,6 +1034,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"date",
+			"price",
+			"DmozItem",
+			"price",
+			"desc",
+			"size",
 			"box_categ",
 			"main_quit",
 			"gtk",
@@ -1143,13 +1161,7 @@
 			"AliasProperty",
 			"1",
 			"tuple",
-			"vector",
-			"normalized_direction_vector",
-			"1",
-			"0",
-			"1",
-			"p",
-			"SP_SP1"
+			"vector"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1262,83 +1274,10 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "dealmonitorgui.py",
-					"settings":
-					{
-						"buffer_size": 1400,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								654,
-								654
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close"
-							],
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "dealmonitor.glade",
 					"settings":
 					{
@@ -1349,8 +1288,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								1216,
+								1216
 							]
 						],
 						"settings":
@@ -1408,15 +1347,9 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
+				},
 				{
-					"buffer": 1,
+					"buffer": 0,
 					"file": "dealmonitor.glade",
 					"settings":
 					{
@@ -1488,7 +1421,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "scraper/spider.py",
 					"settings":
 					{
@@ -1560,19 +1493,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "scrapy/dealmonitor/items.py",
 					"settings":
 					{
-						"buffer_size": 379,
+						"buffer_size": 289,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								273,
-								273
+								289,
+								289
 							]
 						],
 						"settings":
@@ -1628,6 +1561,228 @@
 						"zoom_level": 1.0
 					},
 					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "scrapy/dealmonitor/spiders/spider.py",
+					"settings":
+					{
+						"buffer_size": 934,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								166,
+								166
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/troll/Downloads/deal-monitor/add_job.py",
+					"settings":
+					{
+						"buffer_size": 623,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "scrapy/dealmonitor/spiders/spider.py",
+					"settings":
+					{
+						"buffer_size": 934,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								604,
+								604
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 310.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
 				}
 			]
 		}
@@ -1660,7 +1815,7 @@
 		"cols":
 		[
 			0.0,
-			0.539631805529,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -1684,6 +1839,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"spid",
+				"scrapy/dealmonitor/spiders/spider.py"
+			],
 			[
 				"",
 				"dealmonitor.glade"
@@ -2191,10 +2350,6 @@
 			[
 				"elemenh",
 				"data_structures/element.h"
-			],
-			[
-				"tesutil",
-				"tests/test_utils.h"
 			]
 		],
 		"width": 0.0
