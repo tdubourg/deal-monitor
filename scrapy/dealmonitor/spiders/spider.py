@@ -2,27 +2,59 @@
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import HtmlXPathSelector
+from scrapy.http import Request
 from dealmonitor.items import *
 from BeautifulSoup import BeautifulSoup
 import re 
 import time, calendar, datetime
 import locale
+from threading import Lock
+
+mutex = Lock()
+mutex.acquire()
 
 locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 
 price_regexp = re.compile(".*?(([0-9]+( [0-9]+)?)+)", re.MULTILINE | re.DOTALL)
 date_regexp = re.compile(" le ([0-9]{1,2} [^ ]+) [^ ]+ ([0-9]{1,2}:[0-9]{1,2})")
+extract_number_of_pages_regexp = re.compile(".*?o=([0-9]+)&")
 
 DBG = True
+
+def sitemlist_url(start_url):
+    result = start_url.replace("?q=", "\\?o=[0-9]+&q=")
+    if DBG:
+        print "POUET", result
+    return result
+
+# def start_urls_generator(start_url, urls):
+#     print "ITEMLIST: init generator called"
+#     i = 0
+#     l = len(urls)
+#     while i < l:
+#         print "ITEMLIST: generator called, start of WHILE, i=", i
+#         yield urls[i]
+#         if i < 10:
+#             urls += ["http://pouet"]
+#         l = len(urls)
+#         i += 1
+#         print "ITEMLIST: generator called, end of WHILE, i=", i
+#         # mutex.acquire(True)
+#         # mutex.release()
+
 
 class LBCSpider(CrawlSpider):
     name = "lbc"
     allowed_domains = ["leboncoin.fr"]
-    start_urls = [
-      "http://www.leboncoin.fr/informatique/offres/rhone_alpes/?f=a&th=1&q=g500"
-    ]
+    __start_url = "http://www.leboncoin.fr/informatique/offres/rhone_alpes/?q=ordinateur"
+    # additional_urls_to_crawl = [__start_url]
+    start_urls = [__start_url]
     rules = [
-        Rule(SgmlLinkExtractor(allow='http:\/\/.*\/.*\.htm', restrict_xpaths='//div[@class="list-lbc"]'), callback='parse_item_page')
+        Rule(SgmlLinkExtractor(allow='http:\/\/.*\/.*\.htm', restrict_xpaths='//div[@class="list-lbc"]'), callback='parse_item_page'),
+        Rule(SgmlLinkExtractor(
+            allow=sitemlist_url(__start_url),
+            restrict_xpaths='//nav/ul[@id="paging"]/li[position() = last()]'),
+            callback='last_itemlist_page')
     ]
 
     def parse_item_page(self, response):
@@ -37,6 +69,21 @@ class LBCSpider(CrawlSpider):
         item['desc'] = BeautifulSoup(hxs.select('//div[@class="AdviewContent"]/div[@class="content"]/text()').extract()[0].encode('utf-8')).string
         item['date'] = self.extract_date(hxs)
         return item
+
+    def last_itemlist_page(self, response):
+        if DBG:
+            print "\n --- LAST ITEMLIST PAGE --- :", response.url
+        m = extract_number_of_pages_regexp.match(response.url)
+        if m is None:
+            return None
+        
+        self.max_page = int(m.groups()[0])
+        result = []
+        for x in xrange(2, self.max_page+1):
+            page_url = self.__start_url.replace("?q=", "?o=" + str(x) + "&q=")
+            result.append(Request(page_url, callback=self.parse_item_page))
+        return result
+
 
     def extract_price(self, hxs):
             price_l = hxs.select('//span[@class="price"]/text()').extract()
