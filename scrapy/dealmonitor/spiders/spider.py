@@ -13,6 +13,8 @@ from threading import Lock
 mutex = Lock()
 mutex.acquire()
 
+INTERVAL_BETWEEN_ITEM_PAGE_CRAWL_IN_SECONDS = 0.1
+
 locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 
 price_regexp = re.compile(".*?(([0-9]+( [0-9]+)?)+)", re.MULTILINE | re.DOTALL)
@@ -20,6 +22,9 @@ date_regexp = re.compile(" le ([0-9]{1,2} [^ ]+) [^ ]+ ([0-9]{1,2}:[0-9]{1,2})")
 extract_number_of_pages_regexp = re.compile(".*?o=([0-9]+)&")
 
 DBG = True
+
+if DBG:
+    n = 0
 
 def sitemlist_url(start_url):
     result = start_url.replace("?q=", "\\?o=[0-9]+&q=")
@@ -44,9 +49,10 @@ def sitemlist_url(start_url):
 
 
 class LBCSpider(CrawlSpider):
+    total_of_items_url = 0
     name = "lbc"
     allowed_domains = ["leboncoin.fr"]
-    __start_url = "http://www.leboncoin.fr/informatique/offres/rhone_alpes/?q=ordinateur"
+    __start_url = "http://www.leboncoin.fr/informatique/offres/rhone_alpes/?q=lenovo"
     # additional_urls_to_crawl = [__start_url]
     start_urls = [__start_url]
     rules = [
@@ -60,6 +66,10 @@ class LBCSpider(CrawlSpider):
     def parse_item_page(self, response):
         if DBG:
             print "\n\n-----\n\nnamesURL=", response.url
+            # raw_input()
+
+        # Wait for some time in order not to be banned / detected as a violent crawler by the website
+        time.sleep(INTERVAL_BETWEEN_ITEM_PAGE_CRAWL_IN_SECONDS)
 
         hxs = HtmlXPathSelector(response)
         item = DealmonitorItem()
@@ -68,6 +78,11 @@ class LBCSpider(CrawlSpider):
         item['price'] = self.extract_price(hxs)
         item['desc'] = BeautifulSoup(hxs.select('//div[@class="AdviewContent"]/div[@class="content"]/text()').extract()[0].encode('utf-8')).string
         item['date'] = self.extract_date(hxs)
+
+        if DBG:
+            global n
+            n += 1
+            print "This was the ", n, "-th item page to be scrapped"
         return item
 
     def last_itemlist_page(self, response):
@@ -79,10 +94,33 @@ class LBCSpider(CrawlSpider):
         
         self.max_page = int(m.groups()[0])
         result = []
-        for x in xrange(2, self.max_page+1):
+        for x in xrange(2, self.max_page):
             page_url = self.__start_url.replace("?q=", "?o=" + str(x) + "&q=")
-            result.append(Request(page_url, callback=self.parse_item_page))
+            result.append(Request(page_url, callback=self.parse_itemlist_page))
+
+        # WHile we are at it, scrap this page's items:
+        self.parse_itemlist_page(response)
+        
+        if DBG:
+            print "Returning", result
+            raw_input()
         return result
+
+    def parse_itemlist_page(self, response):
+        if DBG:
+            print "\n\n--- PARSING ITEMLIST PAGE", response.url, "---\n\n"
+        hxs = HtmlXPathSelector(response)
+        sites = hxs.select('//div[@class="list-lbc"]/a')
+        # sites = hxs.select('//div[@id="ContainerMain"]/div[@class="list-lbc"]')
+        items_urls = []
+        for site in sites:
+            url = site.select('@href').extract()[0]
+            items_urls.append(Request(url, callback=self.parse_item_page))
+
+        if DBG:
+            self.total_of_items_url += len(items_urls)
+            print "## Total number of item pages urls generated is now", self.total_of_items_url
+        return items_urls
 
 
     def extract_price(self, hxs):
