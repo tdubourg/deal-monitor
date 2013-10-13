@@ -13,7 +13,7 @@ from threading import Lock
 mutex = Lock()
 mutex.acquire()
 
-INTERVAL_BETWEEN_ITEM_PAGE_CRAWL_IN_SECONDS = 0.1
+INTERVAL_BETWEEN_ITEM_PAGE_CRAWL_IN_SECONDS = 0.01
 
 locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 
@@ -47,21 +47,45 @@ def sitemlist_url(start_url):
 #         # mutex.acquire(True)
 #         # mutex.release()
 
+LBC_START_URL_FORMAT = "http://www.leboncoin.fr/%soffres/%s?q=%s"
+def lbc_start_url(keywords, region, category):
+    if region is not None:
+        region = region + "/"
+    if category is not None:
+        category = category + "/"
+
+    keywords = keywords.replace(" ", "+") #TODO: Actual urlencoding
+    return LBC_START_URL_FORMAT % (category, region, keywords)
 
 class LBCSpider(CrawlSpider):
     total_of_items_url = 0
     name = "lbc"
     allowed_domains = ["leboncoin.fr"]
-    __start_url = "http://www.leboncoin.fr/informatique/offres/rhone_alpes/?q=lenovo"
+    __start_url = "http://www.leboncoin.fr/consoles_jeux_video/offres/rhone_alpes/occasions/?q=gamecube"
     # additional_urls_to_crawl = [__start_url]
-    start_urls = [__start_url]
-    rules = [
-        Rule(SgmlLinkExtractor(allow='http:\/\/.*\/.*\.htm', restrict_xpaths='//div[@class="list-lbc"]'), callback='parse_item_page'),
-        Rule(SgmlLinkExtractor(
-            allow=sitemlist_url(__start_url),
-            restrict_xpaths='//nav/ul[@id="paging"]/li[position() = last()]'),
-            callback='last_itemlist_page')
-    ]
+    # start_urls = [__start_url]
+    start_url = None
+
+    def __init__(self, keywords, category, region):
+        self.keywords = keywords
+        self.category = category
+        self.region = region
+        self.start_url = lbc_start_url(keywords, region, category)
+        self._rules = [
+            Rule(
+                SgmlLinkExtractor(
+                    allow='http:\/\/.*\/.*\.htm'
+                    , restrict_xpaths='//div[@class="list-lbc"]'
+                )
+                , callback=self.parse_item_page
+            )
+            , Rule(SgmlLinkExtractor(
+                allow=sitemlist_url(self.start_url)
+                , restrict_xpaths='//nav/ul[@id="paging"]/li[position() = last()]')
+                , callback=self.last_itemlist_page
+                )
+        ]
+        self.start_urls = [self.start_url]
 
     def parse_item_page(self, response):
         if DBG:
@@ -99,8 +123,8 @@ class LBCSpider(CrawlSpider):
             result.append(Request(page_url, callback=self.parse_itemlist_page))
 
         # WHile we are at it, scrap this page's items:
-        self.parse_itemlist_page(response)
-        
+        result.extend(self.parse_itemlist_page(response))
+
         if DBG:
             print "Returning", result
             raw_input()
@@ -119,7 +143,7 @@ class LBCSpider(CrawlSpider):
 
         if DBG:
             self.total_of_items_url += len(items_urls)
-            print "## Total number of item pages urls generated is now", self.total_of_items_url
+            print "## Total number of items urls generated is now", self.total_of_items_url
         return items_urls
 
 
