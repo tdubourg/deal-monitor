@@ -6,6 +6,7 @@
 from scrapy.item import Item, Field
 
 class DealmonitorItem(Item):
+    id = Field()
     url = Field()
     title = Field()
     desc = Field()

@@ -20,6 +20,7 @@ locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 price_regexp = re.compile(".*?(([0-9]+( [0-9]+)?)+)", re.MULTILINE | re.DOTALL)
 date_regexp = re.compile(" le ([0-9]{1,2} [^ ]+) [^ ]+ ([0-9]{1,2}:[0-9]{1,2})")
 extract_number_of_pages_regexp = re.compile(".*?o=([0-9]+)&")
+lbc_url_extract_id_regexp = re.compile("\\/([0-9]+)\\.htm")
 
 DBG = True
 
@@ -97,6 +98,7 @@ class LBCSpider(CrawlSpider):
 
         hxs = HtmlXPathSelector(response)
         item = DealmonitorItem()
+        item['id'] = self.extract_id_from_url(response.url)
         item['title'] = hxs.select('//h2[@id="ad_subject"]').extract()[0].encode('utf-8')
         item['url'] = response.url
         item['price'] = self.extract_price(hxs)
@@ -127,7 +129,7 @@ class LBCSpider(CrawlSpider):
 
         if DBG:
             print "Returning", result
-            raw_input()
+            # raw_input()
         return result
 
     def parse_itemlist_page(self, response):
@@ -157,6 +159,12 @@ class LBCSpider(CrawlSpider):
                 price = -1
 
             return price
+
+    def extract_id_from_url(self, url):
+        m = lbc_url_extract_id_regexp.search(url)
+        if m is None:
+            return -1
+        return m.groups()[0]
 
     def extract_date(self, hxs):
         texts = hxs.select('//div[@class="upload_by"]/text()').extract()
