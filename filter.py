@@ -26,6 +26,7 @@ class Filter(object):
 	def __init__(self, data):
 		super(Filter, self).__init__()
 		self.data = data
+		self.name = data["name"]
 	
 	def satisfies(self, item):
 		if ((self.data["min_price"] is None or item["price"] >= self.data["min_price"]) and
@@ -34,12 +35,7 @@ class Filter(object):
 		return False
 
 	def __repr__(self):
-		return "(min=%s, max=%s, min_al=%s, max_al=%s)" % (
-			self.data["min_price"],
-			self.data["max_price"],
-			self.data["min_price_for_alert"],
-			self.data["max_price_for_alert"]
-		)
+		return "Filter(" + self.name + ")"
 
 	def satisfies_alert(self, item):
 		if self.data["alert_enabled"] is not True:
