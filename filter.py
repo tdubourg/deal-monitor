@@ -3,32 +3,22 @@ from json import dumps
 def toJSON(o):
 	return dumps(o.data)
 
+FILTER_FIELD_LIST = [
+	("min_price", int)
+	, ("max_price", int)
+	, ("min_price_for_alert", int)
+	, ("max_price_for_alert", int)
+	, ("alert_enabled", None)
+]
 def fromJSON(data):
-	try:
-		data["min_price"] = int(data["min_price"])
-	except KeyError:
-		data["min_price"] = None
-
-	try:
-		data["max_price"] = int(data["max_price"])
-	except KeyError:
-		data["max_price"] = None
-	
-	try:
-		data["min_price_for_alert"] = int(data["min_price_for_alert"])
-	except KeyError:
-		data["min_price_for_alert"] = None
-	
-	try:
-		data["max_price_for_alert"] = int(data["max_price_for_alert"])
-	except KeyError:
-		data["max_price_for_alert"] = None
-
-	try:
-		data["alert_enabled"] = data["alert_enabled"]
-	except KeyError:
-		data["alert_enabled"] = None
-	
+	for field in FILTER_FIELD_LIST:
+		try:
+			if field[1] is not None:
+				data[field[0]] = field[1](data[field[0]])
+			else:
+				data[field[0]] = data[field[0]]
+		except KeyError:
+			data[field[0]] = None
 	return Filter(data)
 
 class Filter(object):
