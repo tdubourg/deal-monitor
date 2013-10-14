@@ -23,15 +23,13 @@ def send_alert(item, filter):
 		, item["title"]
 		, filter.name
 	)
-	print header
 	msg = header + '\n this is test msg from mkyong.com \n\n'
 	sc.sendmail(gmail_user, to, msg)
-	print 'done!'
 	sc.close()
 
 passed_alerts = dict([(int(id), o) for id,o in json.load(open("passed_alerts.json")).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
 
-def already_alerted(self, item):
+def already_alerted(item):
 	"""
 	Tells whether we already sent an alert for this item, with its current price.
 	We consider we have the right to send an alert again is the price changed compared to the previous alert sent for this item.
@@ -53,7 +51,7 @@ def already_alerted(self, item):
 items_lbc_file = open("items_lbc.json")
 items = json.load(items_lbc_file)
 
-already_existing_items = dict([(int(o["id"], o) for o in json.load(open("filtered_items.json"))])
+already_existing_items = dict([(int(o["id"]), o) for o in json.load(open("filtered_items.json"))])
 
 # Load filters
 filters_file = open('filters.json')
@@ -96,8 +94,13 @@ for item in items:
 				# New satisfying item, insert in db
 				output_items[f.name].append(item)
 
-			if f.satisfies_alert(item) and not already_alerted(item):
+			if f.satisfies_alert(item):
 				if DBG:
 					print "Item satisfies alert for filter", f
-				# Send alert
-				send_alert(item, f)
+				if not already_alerted(item):
+					# Send alert
+					send_alert(item, f)
+				else:
+					if DBG:
+						print "Item satisfies alert for filter but already alerted", f
+				
