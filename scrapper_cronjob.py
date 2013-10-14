@@ -5,8 +5,31 @@ from utils.shell_utils import execute_shell_and_get_stdout
 import json
 import filter as f
 from bisect import bisect_left as bisect_search
+import smtplib
 
-passed_alerts = dict([(int(id), o) for id,o in json.load(open("passed_alerts.json")).items()]) #TODO: Sorts prices lists so that we can use bisect_search()?
+def send_alert(item, filter):
+	to = 'trolldu26@gmail.com'
+	gmail_user = 'notimportant2014@gmail.com'
+	gmail_pwd = 'thisaccountdoesnotmatter'
+	# Opening SMTP connection...
+	sc = smtplib.SMTP("smtp.gmail.com", 587)
+	sc.ehlo()
+	sc.starttls()
+	sc.ehlo
+	sc.login(gmail_user, gmail_pwd)
+	header = 'To: %s\nFrom: %s \nSubject: Bot Alert for Item %s [%s]\n' % (
+		to
+		, gmail_user
+		, item["title"]
+		, filter.name
+	)
+	print header
+	msg = header + '\n this is test msg from mkyong.com \n\n'
+	sc.sendmail(gmail_user, to, msg)
+	print 'done!'
+	sc.close()
+
+passed_alerts = dict([(int(id), o) for id,o in json.load(open("passed_alerts.json")).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
 
 def already_alerted(self, item):
 	"""
@@ -77,4 +100,4 @@ for item in items:
 				if DBG:
 					print "Item satisfies alert for filter", f
 				# Send alert
-				#TODO
+				send_alert(item, f)
