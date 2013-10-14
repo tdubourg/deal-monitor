@@ -23,6 +23,11 @@ def fromJSON(data):
 		data["max_price_for_alert"] = int(data["max_price_for_alert"])
 	except KeyError:
 		data["max_price_for_alert"] = None
+
+	try:
+		data["alert_enabled"] = data["alert_enabled"]
+	except KeyError:
+		data["alert_enabled"] = None
 	
 	return Filter(data)
 
@@ -47,6 +52,9 @@ class Filter(object):
 		)
 
 	def satisfies_alert(self, item):
+		if self.data["alert_enabled"] is not True:
+			return False
+
 		if not self.satisfies(item):
 			return False
 

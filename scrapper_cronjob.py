@@ -36,6 +36,6 @@ for item in items:
 			#TODO
 		if f.satisfies_alert(item):
 			if DBG:
-				print "Item satisfies alert!"
+				print "Item satisfies alert for filter", f
 			# Send alert
 			#TODO
