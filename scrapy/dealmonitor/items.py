@@ -12,3 +12,4 @@ class DealmonitorItem(Item):
     desc = Field()
     price = Field()
     date = Field()
+    phone = Field()

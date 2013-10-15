@@ -9,6 +9,12 @@ import re
 import time, calendar, datetime
 import locale
 from threading import Lock
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__ + "/../../../")))
+print 
+from utils.shell_utils import execute_shell_and_get_stdout as execsh
+from utils.ocr import ocr as ocr
+
 
 mutex = Lock()
 mutex.acquire()
@@ -62,7 +68,7 @@ class LBCSpider(CrawlSpider):
     total_of_items_url = 0
     name = "lbc"
     allowed_domains = ["leboncoin.fr"]
-    __start_url = "http://www.leboncoin.fr/consoles_jeux_video/offres/rhone_alpes/occasions/?q=gamecube"
+    __start_url = "http://www.leboncoin.fr/consoles_jeux_video/offres/rhone_alpes/?q=gamecube"
     # additional_urls_to_crawl = [__start_url]
     # start_urls = [__start_url]
     start_url = None
@@ -104,6 +110,14 @@ class LBCSpider(CrawlSpider):
         item['price'] = self.extract_price(hxs)
         item['desc'] = BeautifulSoup(hxs.select('//div[@class="AdviewContent"]/div[@class="content"]/text()').extract()[0].encode('utf-8')).string
         item['date'] = self.extract_date(hxs)
+
+        phone_num_img_url = hxs.select('//img[@class="AdPhonenum"]/@src').extract()
+
+        if phone_num_img_url is not None and len(phone_num_img_url) > 0:
+            tmpfile = item['id'] + '.gif'
+            execsh('wget', [phone_num_img_url[0], "-O", tmpfile])
+            item["phone"] = ocr(tmpfile)
+
 
         if DBG:
             global n
