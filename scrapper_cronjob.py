@@ -20,10 +20,10 @@ def send_alert(item, filter):
 	header = 'To: %s\nFrom: %s \nSubject: Bot Alert for Item %s [%s]\n' % (
 		to
 		, gmail_user
-		, item["title"]
-		, filter.name
+		, item["title"].encode("utf-8")
+		, filter.name.encode("utf-8")
 	)
-	msg = header + '\n this is test msg from mkyong.com \n\n'
+	msg = header + '\n BOT ALERT FOR %s \n %s \n %s \n\n' % (item["url"].encode("utf-8"), item["title"].encode("utf-8"), item["desc"].encode("utf-8"))
 	sc.sendmail(gmail_user, to, msg)
 	sc.close()
 
