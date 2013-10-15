@@ -99,7 +99,7 @@ class LBCSpider(CrawlSpider):
         hxs = HtmlXPathSelector(response)
         item = DealmonitorItem()
         item['id'] = self.extract_id_from_url(response.url)
-        item['title'] = hxs.select('//h2[@id="ad_subject"]').extract()[0].encode('utf-8')
+        item['title'] = hxs.select('//h2[@id="ad_subject"]/text()').extract()[0].encode('utf-8')
         item['url'] = response.url
         item['price'] = self.extract_price(hxs)
         item['desc'] = BeautifulSoup(hxs.select('//div[@class="AdviewContent"]/div[@class="content"]/text()').extract()[0].encode('utf-8')).string
