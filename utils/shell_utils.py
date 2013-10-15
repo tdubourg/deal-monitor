@@ -8,4 +8,4 @@ def execute_shell_and_get_stdout(shell_command, args_list):
         print "Going to execute command: ", shell_command, args_list
     command = [shell_command]
     command.extend(args_list)
-    return Popen(command, stdout=PIPE, stderr=PIPE).communicate()
+    return Popen(command, stdout=PIPE, stderr=PIPE).communicate()[0] # [0] is stdout, [1] is stderr
