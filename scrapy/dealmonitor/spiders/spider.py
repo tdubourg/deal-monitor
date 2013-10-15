@@ -117,6 +117,7 @@ class LBCSpider(CrawlSpider):
             tmpfile = item['id'] + '.gif'
             execsh('wget', [phone_num_img_url[0], "-O", tmpfile])
             item["phone"] = ocr(tmpfile)
+            os.remove(tmpfile)
 
 
         if DBG:
