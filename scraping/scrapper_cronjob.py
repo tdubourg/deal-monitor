@@ -7,14 +7,15 @@ import filter as f
 from bisect import bisect_left as bisect_search
 import smtplib
 
-ITEMS_FILEPATH = "items_lbc.json"
-FILTERED_ITEMS_FILEPATH = "filtered_items.json"
-PASSED_ALERTS_FILEPATH = "passed_alerts.json"
+DATA_PATH = "data/"
+ITEMS_FILEPATH = DATA_PATH + "items_lbc.json"
+FILTERED_ITEMS_FILEPATH = DATA_PATH + "filtered_items.json"
+PASSED_ALERTS_FILEPATH = DATA_PATH + "passed_alerts.json"
 
 def send_alert(item, filter):
-	to = 'trolldu26@gmail.com'
-	gmail_user = 'notimportant2014@gmail.com'
-	gmail_pwd = 'thisaccountdoesnotmatter'
+	to = open(DATA_PATH + "alert_recipient.txt").read().strip()
+	gmail_user = open(DATA_PATH + "alert_smtp_username.txt").read().strip()
+	gmail_pwd = open(DATA_PATH + "alert_smtp_password.txt").read().strip()
 	# Opening SMTP connection...
 	sc = smtplib.SMTP("smtp.gmail.com", 587)
 	sc.ehlo()
@@ -74,7 +75,7 @@ items_lbc_file.close()
 already_existing_items = dict([(int(o["id"]), o) for o in json.load(open(FILTERED_ITEMS_FILEPATH))])
 
 # Load filters
-filters_file = open('filters.json')
+filters_file = open(DATA_PATH + 'filters.json')
 filters_json_data = json.load(filters_file)
 filters_file.close()
 if DBG:

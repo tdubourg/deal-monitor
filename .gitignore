@@ -2,8 +2,9 @@
 
 *.sublime-workspace
 thrash/*
-scrapy/items.json
-scrapy/scrap.log
+*scrapy/items.json
+*scrapy/scrap.log
+scraping/data
 
 # C extensions
 *.so

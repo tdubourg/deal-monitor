@@ -1,0 +1,7 @@
+{
+	// Id of the item we sent an alert about
+	"1234": [
+		// List of prices (of this very item) for which we sent alerts
+		"5", "6"
+	]
+}
