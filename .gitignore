@@ -1,6 +1,7 @@
 *.py[cod]
 
 *.sublime-workspace
+thrash/*
 
 # C extensions
 *.so
