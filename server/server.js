@@ -4,7 +4,6 @@
 
 var DATA_PATH = "./data/"
 var net = require("net");
-var alerts = require(DATA_PATH + "sms_alerts.json")
 var streamId = 0
 var streams = {}
 var server = null
@@ -15,8 +14,9 @@ function start (port, ip) {
 	console.log("ANDRONOTIF: Starting Android Service server")
 	var server = net.createServer(function(stream) {
 		var stop = false
-		var myStreamId = streamId++
-		streams[myStreamId] = stream
+		var device_name = false
+		// var myStreamId = streamId++
+		// streams[myStreamId] = stream
 		stream.setTimeout(0);
 		stream.setEncoding("utf8");
 
@@ -37,8 +37,9 @@ function start (port, ip) {
 		function shutdown () {
 			console.log("ANDRONOTIF: Closing connection to Android device number", myStreamId)
 			var stop = true
-			// clearInterval(a)
-			delete streams[myStreamId]
+			if (device_name) { // If the device identified itself and was thus registered in the active streams, remove it on shutdown
+				delete streams[device_name]
+			};
 		}
 
 		stream.on("error", shutdown)
@@ -48,22 +49,35 @@ function start (port, ip) {
 		var buffer = ""
 		stream.addListener("data", function (data) {
 			console.log("ANDRONOTIF: " + new Date().toString() + "New data packet came in:", data)
+			buffer += data
+			// If this is not a complete frame (the END_OF_IDENTIFICATION_FRAME is not present), then, just add to the buffer and
+			// return from this callback
+			if(-1 == data.indexOf(END_OF_IDENTIFICATION_FRAME)) {
+				return
+			}
+			frame = buffer
+			buffer = "" // Emptying the buffer, so that it's ready to get the next start of a frame
+			device_name = extract_device_name(frame)
+			streams[device_name] = stream // Register the newly identified device as an active stream
 			stream.write("ANDRONOTIF: " + new Date().toString() + ": ACK\r\n")
 		});
 	})
 	server.listen(port, ip);
 }
 
-function write_to_device (streamId, message, recipient_phone_number) {
+function write_to_device (device_name, message, recipient_phone_number) {
 	var msgTxt = MESSAGE_TO_SEND_PREFIX + message
 	var phoneTxt = "\n" + PHONE_NUM_PREFIX + recipient_phone_number
-	streams[streamId].write(NOTIF_PREFIX + msgTxt + phoneTxt)
+	streams[device_name].write(NOTIF_PREFIX + msgTxt + phoneTxt)
 }
 
-function push_android_notif (txt_to_send_to_recipient, recipient_phone_number) {
-	for(var streamId in streams) {
-		write_to_device(streamId, txtToSendToRecipient, recipient_phone_number)
-	}
+function push_android_notif (alert) {
+	var device_name = alert["device"]
+	var txt_to_send_to_recipient = alert["message"]
+	var recipient_phone_number = alert["recipient"]
+	if (device_name) {
+		write_to_device(device_name, txt_to_send_to_recipient, recipient_phone_number)
+	};
 }
 
 exports.start = start
