@@ -3,10 +3,10 @@
 var DATA_PATH = "data/"
 var server = require('./server.js')
 var utils = require('./utils.js')
+var p = utils.p
 var fs = require('fs')
 var alerts
 
-var p = console.log
 var writing_to_alerts_file = false
 
 var check_alerts = function () {
@@ -62,9 +62,11 @@ var send_alert = function (event, filename) {
 			var to_be_updated = false
 			for (var i = alerts.length - 1; i >= 0; i--) {
 				if (!alerts[i].sent) {
-					to_be_updated = true
-					server.push_android_notif(alerts[i])
-					alerts[i].sent = true
+					if(server.push_android_notif(alerts[i])) {
+						// If things went well, update the alert, else, do not, so that we try again next time
+						to_be_updated = true
+						alerts[i].sent = true
+					}
 				};
 			};
 			writing_to_alerts_file = true
@@ -80,5 +82,7 @@ var send_alert = function (event, filename) {
 }
 
 fs.watch(ALERTS_FILE_PATH, send_alert);
-server.start(8080, utils.getLocalPublicIpAddress(["eth0", "wlan0"]))
+var ipaddr = utils.getLocalPublicIpAddress(["eth0", "p2p1", "wlan0"])
+p("Starting server on local ip=", ipaddr)
+server.start(8080, ipaddr)
 // a = setInterval(check_alerts, 10000) // Check for new alerts to be sent every 10 seconds
