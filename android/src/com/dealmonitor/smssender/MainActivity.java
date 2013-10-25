@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.telephony.SmsManager;
 import android.widget.Toast;
+import android.content.Intent;
+import android.util.Log;
 
 public class MainActivity extends Activity
 {
@@ -14,17 +16,12 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+    }
 
-              try {
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage("", null, "Ceci est un sms de test envoye depuis l'application :)", null, null);
-                Toast.makeText(getApplicationContext(), "SMS Sent!",
-                            Toast.LENGTH_LONG).show();
-              } catch (Exception e) {
-                Toast.makeText(getApplicationContext(),
-                    "SMS faild, please try again later!",
-                    Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-              }
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.v("SMSS", "onStart() of MainActivity. Starting service...");
+        startService(new Intent(this, SMSService.class));
     }
 }
