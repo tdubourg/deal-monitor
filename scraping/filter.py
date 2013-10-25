@@ -13,6 +13,7 @@ FILTER_FIELD_LIST = [
 	, ("auto_contact", None)
 	, ("auto_contact_sms_template", None)
 	, ("auto_contact_mail_template", None)
+	, ("mail_auto_contact_from", None)
 ]
 def fromJSON(data):
 	for field in FILTER_FIELD_LIST:
@@ -54,10 +55,10 @@ class Filter(object):
 		return False
 
 	def satisfies_auto_contact(self, item):
-		return (self.satisfies_alert(item) and self.auto_contact)
+		return (self.satisfies_alert(item) and self.data["auto_contact"])
 
 	def get_auto_contact_sms_message(self, item):
-		return self.data["auto_contact_sms_template"] % ()
+		return self.data["auto_contact_sms_template"] % (item["title"], item["price"])
 
 	def get_auto_contact_mail_message(self, item):
-		return self.data["auto_contact_mail_template"] % ()
+		return self.data["auto_contact_mail_template"] % (item["title"], item["price"])

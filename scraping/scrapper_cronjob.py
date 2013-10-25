@@ -12,7 +12,7 @@ DATA_PATH = "data/"
 ITEMS_FILEPATH = DATA_PATH + "items_lbc.json"
 FILTERED_ITEMS_FILEPATH = DATA_PATH + "filtered_items.json"
 PASSED_ALERTS_FILEPATH = DATA_PATH + "passed_alerts.json"
-PASSED_SMS_FILEPATH = DATA_PATH + "sms_alerts.json"
+PASSED_SMS_FILEPATH = DATA_PATH + "sms_alerts_py.json"
 PASSED_MAILS_FILEPATH = DATA_PATH + "passed_mails_autocontacts.json"
 SMS_SERVER_LOCK_FILE = DATA_PATH + "sms_alerts.lock"
 SMS_SERVER_ALERTS_FILE = DATA_PATH + "sms_alerts.json"
@@ -43,12 +43,15 @@ def send_alert(item, filter):
 
 def push_new_sms_contact(device_name, message, recipient):
 	while os.path.isfile(SMS_SERVER_LOCK_FILE):
+		print "Sms alerts file locked, waiting for lock to be released..."
 		time.sleep(0.1) # Wait a bit for the lock to be released...
 	# Lock released! Acquire it:
 	flock = open(SMS_SERVER_LOCK_FILE, 'w')
 	flock.close()
 	# We acquired the lock, we can now write to the json db file:
-	sms_alerts = json.load(SMS_SERVER_ALERTS_FILE)
+	f_sms_alerts = open(SMS_SERVER_ALERTS_FILE, "r")
+	sms_alerts = json.load(f_sms_alerts)
+	f_sms_alerts.close()
 	sms_alerts.append(
 		{
 			"device": device_name,
@@ -63,19 +66,19 @@ def push_new_sms_contact(device_name, message, recipient):
 	# Alerts updated, release the lock:
 	os.remove(SMS_SERVER_LOCK_FILE)
 
-def push_new_mail_contact(from, message, recipient):
+def push_new_mail_contact(_from, message, recipient):
 	pass #TODO
 
 def auto_contact(item, filter):
 	push_new_sms_contact(
-		filter["sms_device_name"],
+		filter.data["sms_device_name"],
 		filter.get_auto_contact_sms_message(item),
-		filter["phone"]
+		item["phone"]
 	)
 	register_sms_contacted(item)
 	
 	push_new_mail_contact(
-		filter["mail_auto_contact_from"],
+		filter.data["mail_auto_contact_from"],
 		filter.get_auto_contact_mail_message(item),
 		item["email"]
 	)
@@ -241,13 +244,13 @@ for item in items:
 
 			if f.satisfies_auto_contact(item):
 				if DBG:
-					print "Item satisfies alert for filter", f
+					print "Item satisfies auto_contact for filter", f
 				if not already_auto_contacted(item):
 					# Auto contact
 					auto_contact(item, f)
 				else:
 					if DBG:
-						print "Item satisfies alert for filter but already alerted", f
+						print "Item satisfies auto_contact for filter but already contacted", f
 
 
 f_existing_items = open(FILTERED_ITEMS_FILEPATH, 'w+')
