@@ -20,4 +20,7 @@ function getLocalPublicIpAddress (authorizedInterfaces) {
 	return '127.0.0.1' // Return localhost if nothing is found
 }
 
+var p = console.log
+
 exports.getLocalPublicIpAddress = getLocalPublicIpAddress
+exports.p = p
