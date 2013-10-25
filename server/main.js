@@ -16,7 +16,7 @@ var check_alerts = function () {
 var ALERTS_FILE_PATH = DATA_PATH + "sms_alerts.json"
 
 
-var ALERTS_LOCK_FILE = DATA_PATH + "alerts.lock"
+var ALERTS_LOCK_FILE = DATA_PATH + "sms_alerts.lock"
 
 var	lock_alerts = function () {
 	fs.writeFileSync(ALERTS_LOCK_FILE, "pouet")
