@@ -4,11 +4,15 @@ def toJSON(o):
 	return dumps(o.data)
 
 FILTER_FIELD_LIST = [
+	# , ("field_name", function_to_be_applied_on_unserialize)
 	("min_price", int)
 	, ("max_price", int)
 	, ("min_price_for_alert", int)
 	, ("max_price_for_alert", int)
 	, ("alert_enabled", None)
+	, ("auto_contact", None)
+	, ("auto_contact_sms_template", None)
+	, ("auto_contact_mail_template", None)
 ]
 def fromJSON(data):
 	for field in FILTER_FIELD_LIST:
@@ -48,3 +52,12 @@ class Filter(object):
 			(self.data["max_price_for_alert"] is None or item["price"] <= self.data["max_price_for_alert"])):
 			return True
 		return False
+
+	def satisfies_auto_contact(self, item):
+		return (self.satisfies_alert(item) and self.auto_contact)
+
+	def get_auto_contact_sms_message(self, item):
+		return self.data["auto_contact_sms_template"] % ()
+
+	def get_auto_contact_mail_message(self, item):
+		return self.data["auto_contact_mail_template"] % ()

@@ -6,11 +6,16 @@ import json
 import filter as f
 from bisect import bisect_left as bisect_search
 import smtplib
+import os, time
 
 DATA_PATH = "data/"
 ITEMS_FILEPATH = DATA_PATH + "items_lbc.json"
 FILTERED_ITEMS_FILEPATH = DATA_PATH + "filtered_items.json"
 PASSED_ALERTS_FILEPATH = DATA_PATH + "passed_alerts.json"
+PASSED_SMS_FILEPATH = DATA_PATH + "sms_alerts.json"
+PASSED_MAILS_FILEPATH = DATA_PATH + "passed_mails_autocontacts.json"
+SMS_SERVER_LOCK_FILE = DATA_PATH + "sms_alerts.lock"
+SMS_SERVER_ALERTS_FILE = DATA_PATH + "sms_alerts.json"
 
 def send_alert(item, filter):
 	to = open(DATA_PATH + "alert_recipient.txt").read().strip()
@@ -28,12 +33,55 @@ def send_alert(item, filter):
 		, item["title"].encode("utf-8")
 		, filter.name.encode("utf-8")
 	)
+	#TODO: Improve this message...
 	msg = header + '\n BOT ALERT FOR %s \n %s \n %s \n\n' % (item["url"].encode("utf-8"), item["title"].encode("utf-8"), item["desc"].encode("utf-8"))
 	sc.sendmail(gmail_user, to, msg)
 	sc.close()
 
 	# Now, register this sent alert in the passed alerts:
 	register_alerted(item)
+
+def push_new_sms_contact(device_name, message, recipient):
+	while os.path.isfile(SMS_SERVER_LOCK_FILE):
+		time.sleep(0.1) # Wait a bit for the lock to be released...
+	# Lock released! Acquire it:
+	flock = open(SMS_SERVER_LOCK_FILE, 'w')
+	flock.close()
+	# We acquired the lock, we can now write to the json db file:
+	sms_alerts = json.load(SMS_SERVER_ALERTS_FILE)
+	sms_alerts.append(
+		{
+			"device": device_name,
+			"message": message,
+			"recipient": recipient,
+			"sent": False
+		}
+	)
+	f_sms_alerts = open(SMS_SERVER_ALERTS_FILE, "w+")
+	json.dump(sms_alerts, f_sms_alerts)
+	f_sms_alerts.close()
+	# Alerts updated, release the lock:
+	os.remove(SMS_SERVER_LOCK_FILE)
+
+def push_new_mail_contact(from, message, recipient):
+	pass #TODO
+
+def auto_contact(item, filter):
+	push_new_sms_contact(
+		filter["sms_device_name"],
+		filter.get_auto_contact_sms_message(item),
+		filter["phone"]
+	)
+	register_sms_contacted(item)
+	
+	push_new_mail_contact(
+		filter["mail_auto_contact_from"],
+		filter.get_auto_contact_mail_message(item),
+		item["email"]
+	)
+
+	# Now, register this sent alert in the passed alerts:
+	register_mail_contacted(item)
 
 def register_alerted(item):
 	global passed_alerts
@@ -45,9 +93,45 @@ def register_alerted(item):
 
 	item_passed_alerts.append(item["price"])
 
+def register_sms_contacted(item):
+	global passed_sms_contacts
+	try:
+		item_passed_contacts = passed_sms_contacts[item["id"]]
+	except KeyError:
+		item_passed_contacts = []
+		passed_sms_contacts[item["id"]] = item_passed_contacts
+
+	item_passed_contacts.append(item["price"])
+
+def register_mail_contacted(item):
+	global passed_mail_contacts
+	try:
+		item_passed_contacts = passed_mail_contacts[item["id"]]
+	except KeyError:
+		item_passed_contacts = []
+		passed_mail_contacts[item["id"]] = item_passed_contacts
+
+	item_passed_contacts.append(item["price"])
+
 f_passed_alerts = open(PASSED_ALERTS_FILEPATH, 'r')
 passed_alerts = dict([(int(id), o) for id,o in json.load(f_passed_alerts).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
 f_passed_alerts.close()
+
+f_passed_sms = open(PASSED_SMS_FILEPATH, 'r')
+passed_sms_contacts = dict([(int(id), o) for id,o in json.load(f_passed_sms).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
+f_passed_sms.close()
+
+f_passed_mails = open(PASSED_MAILS_FILEPATH, 'r')
+passed_mail_contacts = dict([(int(id), o) for id,o in json.load(f_passed_mails).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
+f_passed_mails.close()
+
+def has_valid_price(item):
+	if item["price"] is None:
+		return False
+	price = int(item["price"])
+	if price >= 0:
+		return True
+
 
 def already_alerted(item):
 	"""
@@ -55,9 +139,36 @@ def already_alerted(item):
 	We consider we have the right to send an alert again is the price changed compared to the previous alert sent for this item.
 	"""
 	global passed_alerts
+	if not has_valid_price(item):
+		return True # In case the price is not valid, the following comparisons won't work, just don't send an alert to something without a valid price
 	try:
 		item_passed_alerts = passed_alerts[item["id"]]
 		if item["price"] in item_passed_alerts:
+			return True
+		else:
+			return False
+	except KeyError:
+		return False
+
+def already_auto_contacted(item):
+	"""
+	Tells whether we already sent an auto contact for this item.
+	"""
+	global passed_sms_contacts, passed_mail_contacts
+	if not has_valid_price(item):
+		return True # In case the price is not valid, the following comparisons won't work, just don't send an alert to something without a valid price
+	try:
+		item_passed_sms = passed_sms_contacts[item["id"]]
+		if item["price"] in item_passed_sms:
+			return True
+		else:
+			return False
+	except KeyError:
+		return False
+
+	try:
+		item_passed_mail = passed_mail_contacts[item["id"]]
+		if item["price"] in item_passed_mail:
 			return True
 		else:
 			return False
@@ -111,8 +222,8 @@ for item in items:
 			if existing_item is not None: # This item was already inserted
 				 # Did it change?
 				 if existing_item != item:
-				 	# Then update it
-				 	already_existing_items[item["id"]] = item
+					# Then update it
+					already_existing_items[item["id"]] = item
 			else:
 				# New satisfying item, insert in db
 				# output_items[f.name].append(item)
@@ -128,6 +239,17 @@ for item in items:
 					if DBG:
 						print "Item satisfies alert for filter but already alerted", f
 
+			if f.satisfies_auto_contact(item):
+				if DBG:
+					print "Item satisfies alert for filter", f
+				if not already_auto_contacted(item):
+					# Auto contact
+					auto_contact(item, f)
+				else:
+					if DBG:
+						print "Item satisfies alert for filter but already alerted", f
+
+
 f_existing_items = open(FILTERED_ITEMS_FILEPATH, 'w+')
 total_items = already_existing_items.values() + new_items
 
@@ -142,3 +264,11 @@ f_existing_items.close()
 f_passed_alerts = open(PASSED_ALERTS_FILEPATH, 'w+')
 json.dump(passed_alerts, f_passed_alerts)
 f_passed_alerts.close()
+				
+f_passed_mails = open(PASSED_MAILS_FILEPATH, 'w+')
+json.dump(passed_mail_contacts, f_passed_mails)
+f_passed_mails.close()
+				
+f_passed_sms = open(PASSED_SMS_FILEPATH, 'w+')
+json.dump(passed_sms_contacts, f_passed_sms)
+f_passed_sms.close()
