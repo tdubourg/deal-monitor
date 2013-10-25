@@ -4,15 +4,21 @@
 
 var DATA_PATH = "./data/"
 var net = require("net");
-var streamId = 0
+var utils = require('./utils.js')
+var p = utils.p
+// var streamId = 0
 var streams = {}
 var server = null
 var NOTIF_PREFIX = "@@notif@@\n"
-var PHONE_NUM_PREFIX = "url: "
+var MESSAGE_TO_SEND_PREFIX = "@@msg@@"
+var PHONE_NUM_PREFIX = "@@phone@@"
+var END_OF_NOTIF_FRAME = "\n@@end@@\n\n"
+var END_OF_IDENTIFICATION_FRAME = "@@end@@"
 
 function start (port, ip) {
 	console.log("ANDRONOTIF: Starting Android Service server")
 	var server = net.createServer(function(stream) {
+		console.log("ANDRONOTIF: New ANDROID server connection established.")
 		var stop = false
 		var device_name = false
 		// var myStreamId = streamId++
@@ -20,26 +26,14 @@ function start (port, ip) {
 		stream.setTimeout(0);
 		stream.setEncoding("utf8");
 
-		stream.addListener("connect", function(){
-			console.log("ANDRONOTIF: New ANDROID server connection established (device number", myStreamId, ").")
-		// Debug purpose : If you want to debug the notifications, uncomment that code
-		// 	var i = 0
-		// 	a = setInterval(function () {
-		// 		console.log("Sending a new notif", i++, "to Android device number", myStreamId)
-		// 		try {
-		// 			stream.write(NOTIF_PREFIX + "Hi Android device "+ myStreamId + "!\r\n")
-		// 		} catch(e) {
-		// 			shutdown()
-		// 		}
-		// 	}, 3000)
-		});
-
 		function shutdown () {
-			console.log("ANDRONOTIF: Closing connection to Android device number", myStreamId)
 			var stop = true
 			if (device_name) { // If the device identified itself and was thus registered in the active streams, remove it on shutdown
+				console.log("ANDRONOTIF: Closing connection to Android device", device_name)
 				delete streams[device_name]
-			};
+			} else {
+				console.log("ANDRONOTIF: Closing connection to an unidentified Android device")
+			}
 		}
 
 		stream.on("error", shutdown)
@@ -55,29 +49,44 @@ function start (port, ip) {
 			if(-1 == data.indexOf(END_OF_IDENTIFICATION_FRAME)) {
 				return
 			}
-			frame = buffer
+			var frame = buffer
 			buffer = "" // Emptying the buffer, so that it's ready to get the next start of a frame
 			device_name = extract_device_name(frame)
+			p("Device identified itself as", device_name, ". Registering it.")
 			streams[device_name] = stream // Register the newly identified device as an active stream
-			stream.write("ANDRONOTIF: " + new Date().toString() + ": ACK\r\n")
+			stream.write("ANDRONOTIF: " + new Date().toString() + ": ACK\n")
 		});
 	})
 	server.listen(port, ip);
 }
 
+function extract_device_name (frame) {
+	return frame.match(/^([.\s\S]+)@@end@@$/m)[1]
+}
 function write_to_device (device_name, message, recipient_phone_number) {
 	var msgTxt = MESSAGE_TO_SEND_PREFIX + message
-	var phoneTxt = "\n" + PHONE_NUM_PREFIX + recipient_phone_number
-	streams[device_name].write(NOTIF_PREFIX + msgTxt + phoneTxt)
+	var phoneTxt = PHONE_NUM_PREFIX + recipient_phone_number
+	if (streams[device_name]) {
+		var content = NOTIF_PREFIX + msgTxt + phoneTxt + END_OF_NOTIF_FRAME
+		streams[device_name].write(content, function () {
+			p("Content", content, "has been sent")
+		})
+		return true
+	} else {
+		p("No currently active streams for this device name.")
+	}
+	return false
 }
 
 function push_android_notif (alert) {
 	var device_name = alert["device"]
 	var txt_to_send_to_recipient = alert["message"]
 	var recipient_phone_number = alert["recipient"]
+	p("Pushing a new android notif to (", device_name, ", ", recipient_phone_number,")")
 	if (device_name) {
-		write_to_device(device_name, txt_to_send_to_recipient, recipient_phone_number)
-	};
+		return write_to_device(device_name, txt_to_send_to_recipient, recipient_phone_number)
+	}
+	return false
 }
 
 exports.start = start
