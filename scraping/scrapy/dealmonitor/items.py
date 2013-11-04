@@ -14,3 +14,4 @@ class DealmonitorItem(Item):
     date = Field()
     phone = Field()
     email = Field()
+    has_phone_number = Field()
