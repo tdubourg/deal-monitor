@@ -7,6 +7,8 @@ import filter as f
 from bisect import bisect_left as bisect_search
 import smtplib
 import os, time
+import urllib2
+from urllib import urlencode
 
 DATA_PATH = "data/"
 ITEMS_FILEPATH = DATA_PATH + "items_lbc.json"
@@ -66,8 +68,28 @@ def push_new_sms_contact(device_name, message, recipient):
 	# Alerts updated, release the lock:
 	os.remove(SMS_SERVER_LOCK_FILE)
 
-def push_new_mail_contact(_from, message, recipient):
-	pass #TODO
+def push_new_mail_contact(from_email, from_name, from_phone, message, item):
+	data = {
+		"name": from_name,
+		"email": from_email,
+		"phone": from_phone,
+		"body": message,
+		"cc": 1
+	}
+
+	urllib2.urlopen(urllib2.Request(
+		'http://leboncoin//ar/send/0?ca=22_s&id=%s' % item["id"],
+		urlencode(data),
+		{
+            # Mimeting Firefox's POST headers
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:25.0) Gecko/20100101 Firefox/25.0", 
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+            "DNT": "1",
+            "Referer": "http://www2.leboncoin.fr/ar/form/0?ca=22_s&id=%s" % item["id"],
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+	))
 
 def auto_contact(item, filter):
 	push_new_sms_contact(
@@ -78,9 +100,11 @@ def auto_contact(item, filter):
 	register_sms_contacted(item)
 	
 	push_new_mail_contact(
-		filter.data["mail_auto_contact_from"],
+		filter.data["mail_auto_contact_from_email"],
+		filter.data["mail_auto_contact_from_name"],
+		filter.data["mail_auto_contact_from_phone"],
 		filter.get_auto_contact_mail_message(item),
-		item["email"]
+		item
 	)
 
 	# Now, register this sent alert in the passed alerts:
