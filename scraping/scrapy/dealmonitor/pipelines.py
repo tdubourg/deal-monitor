@@ -20,7 +20,7 @@ class DealmonitorPipeline(object):
                         None, 
                         {
                             # Mimeting Firefox's XHR headers
-                            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0", 
+                            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:25.0) Gecko/20100101 Firefox/25.0", 
                             "Origin": "http://www.leboncoin.fr",
                             "Accept": "*/*",
                             "Accept-Language": "en-US,en;q=0.5",
