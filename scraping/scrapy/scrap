@@ -1,4 +1,0 @@
-#!/bin/sh
-clear
-rm -vf items.json
-scrapy crawl lbc -o items.json -t json "$@"
