@@ -22,13 +22,17 @@ if len(args) != 1:
 
 JOB_NAME = args[0]
 
+f_jobs_data = open(DATA_PATH + "jobs.json", 'r')
+job_infos = json.load(f_jobs_data)[JOB_NAME]
+f_jobs_data.close()
+
 DATA_PATH = "data/"
 DATA_JOB_PATH = DATA_PATH + JOB_NAME + "/"
 
 # JOB-only data files
 ITEMS_FILEPATH = DATA_JOB_PATH + "items.json"
 FILTERED_ITEMS_FILEPATH = DATA_JOB_PATH + "filtered_items.json"
-ALERT_RECIPIENT_FILEPATH = DATA_JOB_PATH + "alert_recipient.txt"
+ALERT_RECIPIENT_FILEPATH = job_infos["email_recipient"]
 FILTERS_FILEPATH = DATA_JOB_PATH + 'filters.json'
 
 # Global ones
