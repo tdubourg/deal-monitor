@@ -2,6 +2,8 @@
 DBG = True
 
 from utils.shell_utils import execute_shell_and_get_stdout
+from utils.json_utils import load_json, write_json
+from utils import lock_lockfile, release_lockfile
 import json
 import filter as f
 from bisect import bisect_left as bisect_search
@@ -9,6 +11,7 @@ import smtplib
 import os, time, sys
 import urllib2
 from urllib import urlencode
+from common.config import *
 
 # Retrieving parameters from CLI
 from optparse import OptionParser
@@ -20,29 +23,20 @@ if len(args) != 1:
     parser.print_help()
     exit(0)
 
-DATA_PATH = "data/"
 JOB_NAME = args[0]
 
-f_jobs_data = open(DATA_PATH + "jobs.json", 'r')
-job_infos = json.load(f_jobs_data)[JOB_NAME]
+job_infos = load_json(JOBS_INFO_FILEPATH)[args[0]]
 ALERT_RECIPIENT = job_infos["email_recipient"]
-f_jobs_data.close()
 
 DATA_JOB_PATH = DATA_PATH + JOB_NAME + "/"
 
-# JOB-only data files
-ITEMS_FILEPATH = DATA_JOB_PATH + "items.json"
-FILTERED_ITEMS_FILEPATH = DATA_JOB_PATH + "filtered_items.json"
-FILTERS_FILEPATH = DATA_JOB_PATH + 'filters.json'
-
-# Global ones
-PASSED_ALERTS_FILEPATH = DATA_PATH + "passed_alerts.json"
-PASSED_SMS_FILEPATH = DATA_PATH + "sms_alerts_py.json"
-PASSED_MAILS_FILEPATH = DATA_PATH + "passed_mails_autocontacts.json"
-SMS_SERVER_LOCK_FILE = DATA_PATH + "sms_alerts.lock"
-SMS_SERVER_ALERTS_FILE = DATA_PATH + "sms_alerts.json"
-ALERT_SMTP_USERNAME_FILEPATH = DATA_PATH + "alert_smtp_username.txt"
-ALERT_SMTP_PASSWD_FILEPATH = DATA_PATH + "alert_smtp_password.txt"
+# Customize job's specific paths
+ITEMS_FILEPATH = ITEMS_FILEPATH % job_infos["job_name"]
+FILTERS_FILEPATH = FILTERS_FILEPATH % job_infos["job_name"]
+PASSED_ALERTS_FILEPATH = PASSED_ALERTS_FILEPATH % job_infos["job_name"]
+PASSED_SMS_FILEPATH = PASSED_SMS_FILEPATH % job_infos["job_name"]
+PASSED_MAILS_FILEPATH = PASSED_MAILS_FILEPATH % job_infos["job_name"]
+FILTERED_ITEMS_FILEPATH = FILTERED_ITEMS_FILEPATH % job_infos["job_name"]
 
 def send_alert(item, filter):
     from email.mime.multipart import MIMEMultipart
@@ -81,16 +75,9 @@ def send_alert(item, filter):
     register_alerted(item)
 
 def push_new_sms_contact(device_name, message, recipient):
-    while os.path.isfile(SMS_SERVER_LOCK_FILE):
-        print "Sms alerts file locked, waiting for lock to be released..."
-        time.sleep(0.1) # Wait a bit for the lock to be released...
-    # Lock released! Acquire it:
-    flock = open(SMS_SERVER_LOCK_FILE, 'w')
-    flock.close()
+    lock_lockfile(SMS_SERVER_LOCK_FILE)
     # We acquired the lock, we can now write to the json db file:
-    f_sms_alerts = open(SMS_SERVER_ALERTS_FILE, "r")
-    sms_alerts = json.load(f_sms_alerts)
-    f_sms_alerts.close()
+    sms_alerts = load_json(SMS_SERVER_ALERTS_FILE)
     sms_alerts.append(
         {
             "device": device_name,
@@ -103,7 +90,7 @@ def push_new_sms_contact(device_name, message, recipient):
     json.dump(sms_alerts, f_sms_alerts)
     f_sms_alerts.close()
     # Alerts updated, release the lock:
-    os.remove(SMS_SERVER_LOCK_FILE)
+    release_lockfile(SMS_SERVER_LOCK_FILE)
 
 def push_new_mail_contact(from_email, from_name, from_phone, message, item):
     data = {
@@ -177,17 +164,11 @@ def register_mail_contacted(item):
 
     item_passed_contacts.append(item["price"])
 
-f_passed_alerts = open(PASSED_ALERTS_FILEPATH, 'r')
-passed_alerts = dict([(int(id), o) for id,o in json.load(f_passed_alerts).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
-f_passed_alerts.close()
+passed_alerts = dict([(int(id), o) for id,o in load_json(PASSED_ALERTS_FILEPATH).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
 
-f_passed_sms = open(PASSED_SMS_FILEPATH, 'r')
-passed_sms_contacts = dict([(int(id), o) for id,o in json.load(f_passed_sms).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
-f_passed_sms.close()
+passed_sms_contacts = dict([(int(id), o) for id,o in load_json(PASSED_SMS_FILEPATH).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
 
-f_passed_mails = open(PASSED_MAILS_FILEPATH, 'r')
-passed_mail_contacts = dict([(int(id), o) for id,o in json.load(f_passed_mails).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
-f_passed_mails.close()
+passed_mail_contacts = dict([(int(id), o) for id,o in load_json(PASSED_MAILS_FILEPATH).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
 
 def has_valid_price(item):
     if item["price"] is None:
@@ -243,16 +224,12 @@ def already_auto_contacted(item):
 
 # Analyze results, store the ones that fulfill the filters, send alerts for the ones that fulfill alert filters
 # Load items
-items_file = open(ITEMS_FILEPATH)
-items = json.load(items_file)
-items_file.close()
+items = load_json(ITEMS_FILEPATH)
 
-already_existing_items = dict([(int(o["id"]), o) for o in json.load(open(FILTERED_ITEMS_FILEPATH))])
+already_existing_items = dict([(int(o["id"]), o) for o in load_json(FILTERED_ITEMS_FILEPATH)])
 
 # Load filters
-filters_file = open(FILTERS_FILEPATH)
-filters_json_data = json.load(filters_file)
-filters_file.close()
+filters_json_data = load_json(FILTERS_FILEPATH)
 if DBG:
     print "Filters data:", filters_json_data
 
@@ -325,14 +302,8 @@ else:
 f_existing_items.write(json_repr)
 f_existing_items.close()
                 
-f_passed_alerts = open(PASSED_ALERTS_FILEPATH, 'w+')
-json.dump(passed_alerts, f_passed_alerts)
-f_passed_alerts.close()
+write_json(passed_alerts, PASSED_ALERTS_FILEPATH)
                 
-f_passed_mails = open(PASSED_MAILS_FILEPATH, 'w+')
-json.dump(passed_mail_contacts, f_passed_mails)
-f_passed_mails.close()
+write_json(passed_mail_contacts, PASSED_MAILS_FILEPATH)
                 
-f_passed_sms = open(PASSED_SMS_FILEPATH, 'w+')
-json.dump(passed_sms_contacts, f_passed_sms)
-f_passed_sms.close()
+write_json(passed_sms_contacts, PASSED_SMS_FILEPATH)
