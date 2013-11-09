@@ -14,6 +14,7 @@ FILTER_FIELD_LIST = [
 	, ("auto_contact_sms_template", None)
 	, ("auto_contact_mail_template", None)
 	, ("mail_auto_contact_from", None)
+	, ("name", None)
 ]
 def fromJSON(data):
 	for field in FILTER_FIELD_LIST:
