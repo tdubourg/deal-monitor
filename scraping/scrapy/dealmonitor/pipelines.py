@@ -11,6 +11,15 @@ from utils.ocr import ocr as ocr
 
 class DealmonitorPipeline(object):
     def process_item(self, item, spider):
+        if item["title"]:
+            item["title"] = item["title"].encode('utf-8')
+        if item["desc"]:
+            item["desc"] = item["desc"].encode('utf-8')
+        if item["email"]:
+            item["email"] = item["email"].encode('utf-8')
+        if item["url"]:
+            item["url"] = item["url"].encode('utf-8')
+
         if item["phone"] is None and item["has_phone_number"] is True: # TODO make an actual request and get the right Gif file url to load
             # Step 1, get the URL of the image containing the phone number
             data = json.load(

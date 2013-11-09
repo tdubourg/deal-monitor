@@ -20,19 +20,19 @@ if len(args) != 1:
     parser.print_help()
     exit(0)
 
+DATA_PATH = "data/"
 JOB_NAME = args[0]
 
 f_jobs_data = open(DATA_PATH + "jobs.json", 'r')
 job_infos = json.load(f_jobs_data)[JOB_NAME]
+ALERT_RECIPIENT = job_infos["email_recipient"]
 f_jobs_data.close()
 
-DATA_PATH = "data/"
 DATA_JOB_PATH = DATA_PATH + JOB_NAME + "/"
 
 # JOB-only data files
 ITEMS_FILEPATH = DATA_JOB_PATH + "items.json"
 FILTERED_ITEMS_FILEPATH = DATA_JOB_PATH + "filtered_items.json"
-ALERT_RECIPIENT_FILEPATH = job_infos["email_recipient"]
 FILTERS_FILEPATH = DATA_JOB_PATH + 'filters.json'
 
 # Global ones
@@ -45,7 +45,9 @@ ALERT_SMTP_USERNAME_FILEPATH = DATA_PATH + "alert_smtp_username.txt"
 ALERT_SMTP_PASSWD_FILEPATH = DATA_PATH + "alert_smtp_password.txt"
 
 def send_alert(item, filter):
-    to = open(ALERT_RECIPIENT_FILEPATH).read().strip()
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    to = ALERT_RECIPIENT
     gmail_user = open(ALERT_SMTP_USERNAME_FILEPATH).read().strip()
     gmail_pwd = open(ALERT_SMTP_PASSWD_FILEPATH).read().strip()
     # Opening SMTP connection...
@@ -54,15 +56,25 @@ def send_alert(item, filter):
     sc.starttls()
     sc.ehlo
     sc.login(gmail_user, gmail_pwd)
-    header = 'To: %s\nFrom: %s \nSubject: Bot Alert for Item %s [%s]\n' % (
-        to
-        , gmail_user
-        , item["title"].encode("utf-8")
-        , filter.name.encode("utf-8")
-    )
+    # header = 'To: %s\nFrom: %s \nSubject: Bot Alert for Item %s [%s]\n' % (
+    #     to
+    #     , gmail_user
+    #     , item["title"]
+    #     , filter.name.encode("utf-8")
+    # )
     #TODO: Improve this message...
-    msg = header + '\n BOT ALERT FOR %s \n %s \n %s \n\n' % (item["url"].encode("utf-8"), item["title"].encode("utf-8"), item["desc"].encode("utf-8"))
-    sc.sendmail(gmail_user, to, msg)
+    msg_plain = '\n BOT ALERT FOR %s \n %s \n %s \n\n' % (
+          item["url"]
+        , item["title"]
+        , item["desc"]
+    )
+    msg = MIMEMultipart('alternative')
+    msg['To'] = to
+    msg['From'] = gmail_user
+    msg['Subject'] = "Bot Alert for Item %s [%s]" % (item['title'], filter.name.encode('utf-8'))
+    plaintext = MIMEText(msg_plain.encode('utf-8'),'plain','utf-8')
+    msg.attach(plaintext)
+    sc.sendmail(gmail_user, to, msg.as_string().encode('ascii'))
     sc.close()
 
     # Now, register this sent alert in the passed alerts:
@@ -231,9 +243,9 @@ def already_auto_contacted(item):
 
 # Analyze results, store the ones that fulfill the filters, send alerts for the ones that fulfill alert filters
 # Load items
-items_lbc_file = open(ITEMS_FILEPATH)
-items = json.load(items_lbc_file)
-items_lbc_file.close()
+items_file = open(ITEMS_FILEPATH)
+items = json.load(items_file)
+items_file.close()
 
 already_existing_items = dict([(int(o["id"]), o) for o in json.load(open(FILTERED_ITEMS_FILEPATH))])
 

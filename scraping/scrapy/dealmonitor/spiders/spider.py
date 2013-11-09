@@ -99,12 +99,13 @@ class LBCSpider(CrawlSpider):
         hxs = HtmlXPathSelector(response)
         item = DealmonitorItem()
         item['id'] = self.extract_id_from_url(response.url)
-        item['title'] = hxs.select('//h2[@id="ad_subject"]/text()').extract()[0].encode('utf-8')
+        item['title'] = hxs.select('//h2[@id="ad_subject"]/text()').extract()[0]
         item['url'] = response.url
         item['price'] = self.extract_price(hxs)
-        item['desc'] = BeautifulSoup(hxs.select('//div[@class="AdviewContent"]/div[@class="content"]/text()').extract()[0].encode('utf-8')).string
+        item['desc'] = BeautifulSoup(hxs.select('//div[@class="AdviewContent"]/div[@class="content"]/text()').extract()[0]).string
         item['date'] = self.extract_date(hxs)
         item['phone'] = None
+        item['email'] = None
         
         item["has_phone_number"] = True # due to a current bug on the website, we can grab all the phone numbers, so, hard set that to True for now # hxs.select('//span[@id="phoneNumber"]').extract() is not None
 
