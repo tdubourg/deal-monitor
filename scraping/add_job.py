@@ -13,7 +13,7 @@ if __name__ == '__main__':
     parser = OptionParser()
     parser.usage = "%prog [options] job_name"
     parser.add_option("-i", "--interval", dest="interval", default="60",
-                      help="Monitoring interval, in seconds, for this job.",
+                      help="Interval, in seconds, between two runs of this job (from end to next start).",
                       metavar="interval")
     parser.add_option("-e", "--email_recipient", dest="email_recipient", default="",
                       help="The email recipient for bot alerts (email address that will receive emails if alerts are activated and filters are matched).",
