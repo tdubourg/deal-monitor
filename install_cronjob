@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Grab location on the repo
+here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Create a cronjob file, that contains the cronjob config
+echo "* * * * * ${here}/scraping/run_all_jobs.py" > $here/cronjob
+# Add this cron job to cron
+crontab $here/cronjob
