@@ -94,10 +94,10 @@ def push_new_sms_contact(device_name, message, recipient):
 
 def push_new_mail_contact(from_email, from_name, from_phone, message, item):
     data = {
-        "name": from_name,
+        "name": from_name.encode("utf-8"),
         "email": from_email,
         "phone": from_phone,
-        "body": message,
+        "body": message.encode("utf-8"),
         "cc": 1
     }
 
@@ -115,19 +115,21 @@ def push_new_mail_contact(from_email, from_name, from_phone, message, item):
         }
     ))
 
-def auto_contact(item, filter):
+def auto_contact_sms(item, f):
+    sms_message = f.get_auto_contact_sms_message(item)
     push_new_sms_contact(
-        filter.data["sms_device_name"],
-        filter.get_auto_contact_sms_message(item),
+        f.data["sms_device_name"],
+        sms_message,
         item["phone"]
     )
     register_sms_contacted(item)
-    
+
+def auto_contact_email(item, f):
     push_new_mail_contact(
-        filter.data["mail_auto_contact_from_email"],
-        filter.data["mail_auto_contact_from_name"],
-        filter.data["mail_auto_contact_from_phone"],
-        filter.get_auto_contact_mail_message(item),
+        f.data["mail_auto_contact_from_email"],
+        f.data["mail_auto_contact_from_name"],
+        f.data["mail_auto_contact_from_phone"],
+        f.get_auto_contact_mail_message(item),
         item
     )
 
@@ -188,32 +190,40 @@ def already_alerted(item):
         return True # In case the price is not valid, the following comparisons won't work, just don't send an alert to something without a valid price
     try:
         item_passed_alerts = passed_alerts[item["id"]]
-        if item["price"] in item_passed_alerts:
+        if int(item["price"]) in item_passed_alerts:
             return True
         else:
             return False
     except KeyError:
         return False
 
-def already_auto_contacted(item):
+def already_auto_contacted_sms(item):
     """
     Tells whether we already sent an auto contact for this item.
     """
-    global passed_sms_contacts, passed_mail_contacts
+    global passed_sms_contacts
     if not has_valid_price(item):
         return True # In case the price is not valid, the following comparisons won't work, just don't send an alert to something without a valid price
     try:
         item_passed_sms = passed_sms_contacts[item["id"]]
-        if item["price"] in item_passed_sms:
+        if int(item["price"]) in item_passed_sms:
             return True
         else:
             return False
     except KeyError:
         return False
 
+def already_auto_contacted_email(item):
+    """
+    Tells whether we already sent an auto contact for this item.
+    """
+    global passed_mail_contacts
+    if not has_valid_price(item):
+        return True # In case the price is not valid, the following comparisons won't work, just don't send an alert to something without a valid price
     try:
         item_passed_mail = passed_mail_contacts[item["id"]]
-        if item["price"] in item_passed_mail:
+        print "item_passed_mail", item_passed_mail
+        if int(item["price"]) in item_passed_mail:
             return True
         else:
             return False
@@ -244,7 +254,7 @@ for f in filters:
 
 new_items = []
 
-for item in items:
+for item in items.values():
     item["id"] = item_id = int(item["id"])
     
     try:
@@ -280,15 +290,24 @@ for item in items:
                     if DBG:
                         print "Item satisfies alert for filter but already alerted", f
 
-            if f.satisfies_auto_contact(item):
+            if f.satisfies_auto_contact_sms(item):
                 if DBG:
-                    print "Item satisfies auto_contact for filter", f
-                if not already_auto_contacted(item):
+                    print "Item satisfies auto_contact_sms for filter", f
+                if not already_auto_contacted_sms(item):
                     # Auto contact
-                    auto_contact(item, f)
+                    auto_contact_sms(item, f)
                 else:
                     if DBG:
-                        print "Item satisfies auto_contact for filter but already contacted", f
+                        print "Item satisfies auto_contact_sms for filter but already contacted", f
+            if f.satisfies_auto_contact_email(item):
+                if DBG:
+                    print "Item satisfies auto_contact_email for filter", f
+                if not already_auto_contacted_email(item):
+                    # Auto contact
+                    auto_contact_email(item, f)
+                else:
+                    if DBG:
+                        print "Item satisfies auto_contact_email for filter but already contacted", f
 
 
 f_existing_items = open(FILTERED_ITEMS_FILEPATH, 'w+')

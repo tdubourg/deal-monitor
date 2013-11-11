@@ -10,10 +10,14 @@ FILTER_FIELD_LIST = [
 	, ("min_price_for_alert", int)
 	, ("max_price_for_alert", int)
 	, ("alert_enabled", None)
-	, ("auto_contact", None)
+	, ("auto_contact_sms", None)
+	, ("auto_contact_email", None)
 	, ("auto_contact_sms_template", None)
 	, ("auto_contact_mail_template", None)
-	, ("mail_auto_contact_from", None)
+	, ("sms_device_name", None)
+	, ("mail_auto_contact_from_email", None)
+	, ("mail_auto_contact_from_name", None)
+	, ("mail_auto_contact_from_phone", None)
 	, ("name", None)
 ]
 def fromJSON(data):
@@ -55,11 +59,17 @@ class Filter(object):
 			return True
 		return False
 
-	def satisfies_auto_contact(self, item):
-		return (self.satisfies_alert(item) and self.data["auto_contact"])
+	def satisfies_auto_contact_sms(self, item):
+		return (self.satisfies_alert(item) and self.data["auto_contact_sms"])
+
+	def satisfies_auto_contact_email(self, item):
+		return (self.satisfies_alert(item) and self.data["auto_contact_email"])
 
 	def get_auto_contact_sms_message(self, item):
-		return self.data["auto_contact_sms_template"] % (item["title"], item["price"])
+		if self.data["auto_contact_sms_template"]:
+			return self.data["auto_contact_sms_template"] % (item["title"], item["price"])
+		else:
+			return None
 
 	def get_auto_contact_mail_message(self, item):
 		return self.data["auto_contact_mail_template"] % (item["title"], item["price"])
