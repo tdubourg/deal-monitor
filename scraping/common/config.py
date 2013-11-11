@@ -16,5 +16,16 @@ ALERT_SMTP_PASSWD_FILEPATH = DATA_PATH + "alert_smtp_password.txt"
 JOBS_INFO_FILENAME = "jobs.json"
 
 JOBS_INFO_FILEPATH = DATA_PATH + JOBS_INFO_FILENAME
-LAST_RUN_FILEPATH = DATA_PATH + "%s/lastrun.txt"
+# File storing the last time we've ended a full run of a given job...
+LAST_FULL_RUN_FILEPATH = DATA_PATH + "%s/lastrun_full.txt"
+# File storing the last time we've started a full run of a given job...
+LAST_FULL_RUN_START_FILEPATH = DATA_PATH + "%s/lastrun_full_start.txt"
+# File storing the last time we've started a partial run of a given job...
+LAST_PARTIAL_RUN_START_FILEPATH = DATA_PATH + "%s/lastrun_partial_start.txt"
+# File storing the last time we've ended a partial run of a given job...
+LAST_PARTIAL_RUN_FILEPATH = DATA_PATH + "%s/lastrun_partial.txt"
+# Filename of the lock file used for a job's data lock
 LOCK_FILENAME = "locked"
+
+RUN_TYPE_FULL = "full"
+RUN_TYPE_PARTIAL = "partial"
