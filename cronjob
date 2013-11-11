@@ -1,0 +1,1 @@
+* * * * * cd /tmp/dealmon/scraping && echo "NEW RUN AT $(date)" >> /tmp/dealmon/jobs.log && /tmp/dealmon/scraping/run_all_jobs.py >> /tmp/dealmon/jobs.log 2>&1
