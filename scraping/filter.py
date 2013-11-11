@@ -4,21 +4,21 @@ def toJSON(o):
 	return dumps(o.data)
 
 FILTER_FIELD_LIST = [
-	# , ("field_name", function_to_be_applied_on_unserialize)
-	("min_price", int)
-	, ("max_price", int)
-	, ("min_price_for_alert", int)
-	, ("max_price_for_alert", int)
-	, ("alert_enabled", None)
-	, ("auto_contact_sms", None)
-	, ("auto_contact_email", None)
-	, ("auto_contact_sms_template", None)
-	, ("auto_contact_mail_template", None)
-	, ("sms_device_name", None)
-	, ("mail_auto_contact_from_email", None)
-	, ("mail_auto_contact_from_name", None)
-	, ("mail_auto_contact_from_phone", None)
-	, ("name", None)
+	# , ("field_name", function_to_be_applied_on_unserialize, default_value)
+	("min_price", int, None)
+	, ("max_price", int, None)
+	, ("min_price_for_alert", int, None)
+	, ("max_price_for_alert", int, None)
+	, ("alert_enabled", None, False)
+	, ("auto_contact_sms", None, False)
+	, ("auto_contact_email", None, False)
+	, ("auto_contact_sms_template", None, None)
+	, ("auto_contact_mail_template", None, None)
+	, ("sms_device_name", None, None)
+	, ("mail_auto_contact_from_email", None, None)
+	, ("mail_auto_contact_from_name", None, None)
+	, ("mail_auto_contact_from_phone", None, "")
+	, ("name", None, None)
 ]
 def fromJSON(data):
 	for field in FILTER_FIELD_LIST:
@@ -28,7 +28,7 @@ def fromJSON(data):
 			else:
 				data[field[0]] = data[field[0]]
 		except KeyError:
-			data[field[0]] = None
+			data[field[0]] = field[2] # Default value
 	return Filter(data)
 
 class Filter(object):

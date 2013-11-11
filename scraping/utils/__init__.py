@@ -38,3 +38,6 @@ def write_file(fname, content):
 	res = f.write(content)
 	f.close()
 	return res
+
+def printe(s):
+	print >> sys.stderr, s

@@ -3,7 +3,7 @@ DBG = True
 
 from utils.shell_utils import execute_shell_and_get_stdout
 from utils.json_utils import load_json, write_json
-from utils import lock_lockfile, release_lockfile
+from utils import lock_lockfile, release_lockfile, printe
 import json
 import filter as f
 from bisect import bisect_left as bisect_search
@@ -93,27 +93,82 @@ def push_new_sms_contact(device_name, message, recipient):
     release_lockfile(SMS_SERVER_LOCK_FILE)
 
 def push_new_mail_contact(from_email, from_name, from_phone, message, item):
-    data = {
-        "name": from_name.encode("utf-8"),
-        "email": from_email,
-        "phone": from_phone,
-        "body": message.encode("utf-8"),
+    headers = {
+        # Mimeting Firefox's POST headers
+          "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:25.0) Gecko/20100101 Firefox/25.0"
+        , "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+        , "Accept-Language": "en-US,en;q=0.5"
+        , "DNT": "1"
+    }
+
+    # First, grab the cookie form's, this is necessary to pass website's server-side validation:
+    # And this will also allow us to check against website's specific encoding charset
+    try:
+        form_resp = urllib2.urlopen(urllib2.Request(
+              "http://www2.leboncoin.fr/ar/form/0?ca=22_s&id=%s" % item["id"]
+            , None
+            , headers
+        ))
+        if form_resp.getcode() != 200:
+            return False
+    except:
+        return False
+
+    cookie = ""
+    charset = ""
+    for i in form_resp.info().items():
+        name = i[0].lower()
+        if name == "content-type":
+            pos = i[1].find("charset")
+            if pos is not -1:
+                for i in i[1].split(";"):
+                    i = i.strip()
+                    if i.find("charset") == 0:
+                        charset = i[8:] # for some bizarre reason, slicing notation beings at 1,not 0
+        if name == "set-cookie":
+            cookie = i[1]
+    if DBG:
+        print form_resp.info().items()
+        print "Coooooookie", cookie
+        print 'Encoooooooooooding', charset
+
+    # Add the referer to the headers:
+    headers["Referer"] = "http://www2.leboncoin.fr/ar/form/0?ca=22_s&id=%s" % item["id"]
+    # And the cookie:
+    headers["Cookie"] = cookie
+    # And the content-type of a POST form
+    headers["Content-Type"] = "application/x-www-form-urlencoded" + ("; " + charset if charset else "")
+    # Now you can make the request
+    if not charset:
+        data = {
+            "name": from_name,
+            "email": from_email,
+            "phone": from_phone,
+            "body": message,
+            "cc": 1
+        }
+    else:
+        data = {
+        "name": from_name.encode(charset),
+        "email": from_email.encode(charset),
+        "phone": from_phone.encode(charset),
+        "body": message.encode(charset),
         "cc": 1
     }
 
-    urllib2.urlopen(urllib2.Request(
-        'http://leboncoin//ar/send/0?ca=22_s&id=%s' % item["id"],
-        urlencode(data),
-        {
-            # Mimeting Firefox's POST headers
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:25.0) Gecko/20100101 Firefox/25.0", 
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-            "DNT": "1",
-            "Referer": "http://www2.leboncoin.fr/ar/form/0?ca=22_s&id=%s" % item["id"],
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-    ))
+    try:
+        r = urllib2.urlopen(urllib2.Request(
+              'http://www2.leboncoin.fr/ar/send/0?ca=22_s&id=%s' % item["id"]
+            , urlencode(data)
+            , headers
+        ))
+    except:
+        return False
+
+    if r.getcode() == 200:
+        return True
+    else:
+        return False
 
 def auto_contact_sms(item, f):
     sms_message = f.get_auto_contact_sms_message(item)
@@ -125,7 +180,7 @@ def auto_contact_sms(item, f):
     register_sms_contacted(item)
 
 def auto_contact_email(item, f):
-    push_new_mail_contact(
+    ret = push_new_mail_contact(
         f.data["mail_auto_contact_from_email"],
         f.data["mail_auto_contact_from_name"],
         f.data["mail_auto_contact_from_phone"],
@@ -134,7 +189,10 @@ def auto_contact_email(item, f):
     )
 
     # Now, register this sent alert in the passed alerts:
-    register_mail_contacted(item)
+    if ret:
+        return register_mail_contacted(item)
+    else:
+        return False
 
 def register_alerted(item):
     global passed_alerts
@@ -165,6 +223,7 @@ def register_mail_contacted(item):
         passed_mail_contacts[item["id"]] = item_passed_contacts
 
     item_passed_contacts.append(item["price"])
+    return True
 
 passed_alerts = dict([(int(id), o) for id,o in load_json(PASSED_ALERTS_FILEPATH).items()]) #TODO: Sort prices lists so that we can use bisect_search()?
 
@@ -222,7 +281,6 @@ def already_auto_contacted_email(item):
         return True # In case the price is not valid, the following comparisons won't work, just don't send an alert to something without a valid price
     try:
         item_passed_mail = passed_mail_contacts[item["id"]]
-        print "item_passed_mail", item_passed_mail
         if int(item["price"]) in item_passed_mail:
             return True
         else:
@@ -304,7 +362,8 @@ for item in items.values():
                     print "Item satisfies auto_contact_email for filter", f
                 if not already_auto_contacted_email(item):
                     # Auto contact
-                    auto_contact_email(item, f)
+                    if not auto_contact_email(item, f):
+                        printe("ERROR, something went wrong while trying to auto_contact_email")
                 else:
                     if DBG:
                         print "Item satisfies auto_contact_email for filter but already contacted", f
