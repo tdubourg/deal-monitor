@@ -23,3 +23,18 @@ def release_lockfile(fname):
 
 def lock_job(jobname, blocking=True):
 	return lock_lockfile(DATA_PATH + jobname + "/" + LOCK_FILENAME, blocking)
+
+def load_file(fname):
+	f = open(fname, 'r')
+	res = f.read()
+	f.close()
+	return res
+
+def write_file(fname, content):
+	"""
+	If the file already exists, it will be overwritten
+	"""
+	f = open(fname, "w+")
+	res = f.write(content)
+	f.close()
+	return res
