@@ -47,15 +47,11 @@ class DealmonitorPipeline(object):
             os.remove(tmpfile)
         return item
 
-from scrapy.xlib.pydispatch import dispatcher
-from scrapy import signals
 class JSONExportPipeline(object):
     def __init__(self):
         self.fname = None
-        dispatcher.connect(self.spider_opened, signals.spider_opened)
-        dispatcher.connect(self.spider_closed, signals.spider_closed)
 
-    def spider_opened(self, spider):
+    def open_spider(self, spider):
         self.load_items(spider)
 
     def load_items(self, spider):
@@ -72,6 +68,6 @@ class JSONExportPipeline(object):
         self.items[item["id"]] = item.__dict__["_values"]
         return item
 
-    def spider_closed(self, spider):
+    def close_spider(self, spider):
         print "Dumping data to %s" % self.fname
         write_json(self.items, self.fname)
