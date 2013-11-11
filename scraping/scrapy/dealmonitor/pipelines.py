@@ -8,6 +8,7 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__ + "/../../")))
 from utils.shell_utils import execute_shell_and_get_stdout as execsh
 from utils.ocr import ocr as ocr
+from utils.json_utils import load_json, write_json
 
 class DealmonitorPipeline(object):
     def process_item(self, item, spider):
@@ -45,3 +46,32 @@ class DealmonitorPipeline(object):
             item["phone"] = ocr(tmpfile)
             os.remove(tmpfile)
         return item
+
+from scrapy.xlib.pydispatch import dispatcher
+from scrapy import signals
+class JSONExportPipeline(object):
+    def __init__(self):
+        self.fname = None
+        dispatcher.connect(self.spider_opened, signals.spider_opened)
+        dispatcher.connect(self.spider_closed, signals.spider_closed)
+
+    def spider_opened(self, spider):
+        self.load_items(spider)
+
+    def load_items(self, spider):
+        self.fname = spider.export_results_filename
+        try:
+            self.items = load_json(self.fname)
+        except IOError:
+            self.items = {}
+
+    def process_item(self, item, spider):
+        print "Processing item for JSON Export..."
+        if self.fname is None:
+            self.load_items(spider)
+        self.items[item["id"]] = item.__dict__["_values"]
+        return item
+
+    def spider_closed(self, spider):
+        print "Dumping data to %s" % self.fname
+        write_json(self.items, self.fname)

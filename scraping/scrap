@@ -1,4 +1,4 @@
 #!/bin/sh
 clear
 cd scrapy
-scrapy crawl lbc -t json "$@"
+scrapy crawl lbc "$@"
