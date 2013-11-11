@@ -126,18 +126,27 @@ class LBCSpider(BaseSpider):
         
         hxs = HtmlXPathSelector(response)
         item_page_urls = hxs.select('//div[@class="list-lbc"]/a')
+        if DBG:
+            print "Found", len(item_page_urls), "items on this page"
+
         for item in item_page_urls:
             url = item.select('@href').extract()[0]
         
             if self.is_partial:
+                if DBG:
+                    print "Partial run case, special things happening"
                 # If the run is partial, perform some checks about the datetime this item was updated
                 # in order to know when to stop the partial run
-                date_date = BeautifulSoup(item_hxs.select('.//div[@class="date"]/div[position() = 1]/text()').extract()[0]).string.strip().encode('utf-8')
-                date_time = BeautifulSoup(item_hxs.select('.//div[@class="date"]/div[position() = 2]/text()').extract()[0]).string.strip().encode('utf-8')
+                date_date = BeautifulSoup(item.select('.//div[@class="date"]/div[position() = 1]/text()').extract()[0]).string.strip().encode('utf-8')
+                date_time = BeautifulSoup(item.select('.//div[@class="date"]/div[position() = 2]/text()').extract()[0]).string.strip().encode('utf-8')
                 # Grab the date of the currently being analyzed item
                 date = self.extract_date_on_itemlist_page(date_date, date_time)
+                if DBG:
+                    print "Date of this item is", date
                 # If this item is older than the datetime we're supposed to check up to, stop the partial run here.
                 if date < self.upto:
+                    if DBG:
+                        print "The item %s was date=%s and thus older than upto=%s" % (url, str(date), str(self.upto))
                     self.partial_stopped = True
                     return
 
@@ -191,6 +200,7 @@ class LBCSpider(BaseSpider):
             return -1
         return m.groups()[0]
 
+    #TOOD: All this code is very LBC specific, move it to somwhere else?
     @staticmethod
     def extract_date_on_itemlist_page(date_date, date_time):
         today = datetime.datetime.today()
@@ -214,7 +224,7 @@ class LBCSpider(BaseSpider):
             )
         else:
             # TODO: Fix the year's hack that will not work when today's year is not the same as ad's year
-            date_str = date_date + " " + date_time + " " + str(today.year)
+            date_str = date_date.title() + ". " + date_time + " " + str(today.year)
 
         dtime = time.strptime(date_str, "%d %b %H:%M %Y") # WARNING, here, month is abbreviated
 
