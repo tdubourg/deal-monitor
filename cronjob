@@ -1,1 +1,1 @@
-* * * * * cd /tmp/dealmon/scraping && echo "NEW RUN AT $(date)" >> /tmp/dealmon/jobs.log && /tmp/dealmon/scraping/run_all_jobs.py >> /tmp/dealmon/jobs.log 2>&1
+* * * * * cd /home/troll/deal-monitor/scraping && /home/troll/deal-monitor/scraping/run_all_jobs.py >> /home/troll/deal-monitor/jobs.log 2>&1

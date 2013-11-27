@@ -3,4 +3,7 @@
 # Grab location on the repo
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+echo "Setting up data folders..."
 cp $here/empty_base_data $here/data -R
+echo "Setting up cron job..."
+./install_cronjob
