@@ -1,4 +1,5 @@
 from json import dumps
+import re
 
 def toJSON(o):
 	return dumps(o.data)
@@ -7,6 +8,7 @@ FILTER_FIELD_LIST = [
 	# , ("field_name", function_to_be_applied_on_unserialize, default_value)
 	("min_price", int, None)
 	, ("max_price", int, None)
+	, ("contains", None, None)
 	, ("min_price_for_alert", int, None)
 	, ("max_price_for_alert", int, None)
 	, ("alert_enabled", None, False)
@@ -29,6 +31,12 @@ def fromJSON(data):
 				data[field[0]] = data[field[0]]
 		except KeyError:
 			data[field[0]] = field[2] # Default value
+                if self.data['contains'] is not None:
+                        try:
+                                self.contains_regexp = re.compile(self.data['contains'], re.MULTILINE | re.DOTALL)
+                        except:
+                                print "Error, regexp failed to compile"
+                                self.contains_regexp = None
 	return Filter(data)
 
 class Filter(object):
@@ -41,7 +49,8 @@ class Filter(object):
 	def satisfies(self, item):
 		if ((self.data["min_price"] is None or item["price"] >= self.data["min_price"]) and
 			(self.data["max_price"] is None or item["price"] <= self.data["max_price"])):
-			return True
+                        if self.satisfies_contains(item):
+        			return True
 		return False
 
 	def __repr__(self):
@@ -58,6 +67,16 @@ class Filter(object):
 			(self.data["max_price_for_alert"] is None or item["price"] <= self.data["max_price_for_alert"])):
 			return True
 		return False
+
+        def satisfies_contains(self, item):
+                if self.contains_regexp is not None:
+                        m = self.contains_regexp.match(item['desc'])
+                        if m is None:
+                            return False
+                        return True
+                               
+                else:
+                        return True # If there is no filters on the content, then it is satisifed...    
 
 	def satisfies_auto_contact_sms(self, item):
 		return (self.satisfies_alert(item) and self.data["auto_contact_sms"])
