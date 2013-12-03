@@ -12,7 +12,7 @@ from threading import Lock
 mutex = Lock()
 mutex.acquire()
 
-INTERVAL_BETWEEN_ITEM_PAGE_CRAWL_IN_SECONDS = 0.01
+INTERVAL_BETWEEN_ITEM_PAGE_CRAWL_IN_SECONDS = 0.0
 RUN_TYPE_FULL = "full"
 RUN_TYPE_PARTIAL = "partial"
 
@@ -27,6 +27,7 @@ extract_number_of_pages_regexp = re.compile(".*?o=([0-9]+)&")
 lbc_url_extract_id_regexp = re.compile("\\/([0-9]+)\\.htm")
 
 DBG = True
+INFO = True
 
 if DBG:
     n = 0
@@ -39,9 +40,9 @@ def itemlist_url(start_url):
 
 LBC_START_URL_FORMAT = "http://www.leboncoin.fr/%soffres/%s?q=%s"
 def lbc_start_url(keywords, region, category):
-    if region is not None:
+    if region:
         region = region + "/"
-    if category is not None:
+    if category:
         category = category + "/"
 
     keywords = keywords.replace(" ", "+") #TODO: Actual urlencoding
@@ -99,17 +100,30 @@ class LBCSpider(BaseSpider):
             print "\n --- FIRST ITEMLIST PAGE --- :", response.url
         
         # Parse 1st page's items
+        print "AVANT"
         for r in self.parse_itemlist_page(response):
             yield r
+        print "APRES"
 
         # Find the total number of pages...
-        m = extract_number_of_pages_regexp.match(response.url)
+        print "AVANT2"
+        a_tag_link_to_last_page = HtmlXPathSelector(response) \
+            .xpath('//nav/ul[@id="paging"]/li[position() = last()]/a/@href') \
+            .extract()[0]
+        
+        m = extract_number_of_pages_regexp.match(a_tag_link_to_last_page)
+        print "APRES2"
         
         # No other page? Stop here
         if m is None:
+            if INFO:
+                print "There is only one page of results, terminating."
             return 
 
         self.max_page = int(m.groups()[0])
+        if INFO:
+            print "Total number of pages:", self.max_page
+
         for x in xrange(2, self.max_page + 1):
             if self.is_partial and self.partial_stopped:
                 break
@@ -175,7 +189,7 @@ class LBCSpider(BaseSpider):
         item['phone'] = None
         item['email'] = None
         
-        item["has_phone_number"] = True # due to a current bug on the website, we can grab all the phone numbers, so, hard set that to True for now # hxs.select('//span[@id="phoneNumber"]').extract() is not None
+        item["has_phone_number"] = hxs.select('//span[@id="phoneNumber"]').extract() is not None
 
         if DBG:
             global n
