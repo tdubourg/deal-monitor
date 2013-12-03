@@ -5,7 +5,7 @@ here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Create a cronjob file, that contains the cronjob config
 touch $here/jobs.log
-echo "* * * * * cd ${here}/scraping && ${here}/scraping/run_all_jobs.py >> ${here}/jobs.log 2>&1" > $here/cronjob
+echo "* * * * * cd ${here}/scraping && date >> ${here}/jobs.log && nice -n15 ${here}/scraping/run_all_jobs.py >> ${here}/jobs.log 2>&1" > $here/cronjob
 # Add this cron job to cron
 crontab $here/cronjob
 
