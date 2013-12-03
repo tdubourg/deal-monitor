@@ -21,7 +21,7 @@ class DealmonitorPipeline(object):
         if item["url"]:
             item["url"] = item["url"].encode('utf-8')
 
-        if item["phone"] is None and item["has_phone_number"] is True: # TODO make an actual request and get the right Gif file url to load
+        if item["phone"] is None and item["has_phone_number"] is True:
             # Step 1, get the URL of the image containing the phone number
             data = json.load(
                 urllib2.urlopen(
@@ -42,9 +42,12 @@ class DealmonitorPipeline(object):
             )
             # Step 2, download it and OCR it
             tmpfile = item['id'] + '.gif'
-            execsh('wget', [data["phoneUrl"], "-O", tmpfile])
-            item["phone"] = ocr(tmpfile)
-            os.remove(tmpfile)
+            try:
+                execsh('wget', [data["phoneUrl"], "-O", tmpfile])
+                item["phone"] = ocr(tmpfile)
+                os.remove(tmpfile)
+            except (KeyError, TypeError):
+                pass
         return item
 
 class JSONExportPipeline(object):
