@@ -7,12 +7,14 @@ from common.config import *
 from utils.json_utils import load_json
 from utils import lock_job, unlock_job, load_file, write_file
 from time import time
-DBG = True
+DBG = False
+INFO = True
 
 if __name__ == '__main__':
     jobs = load_json(JOBS_INFO_FILEPATH)
-    if DBG:
+    if INFO:
         print "Loaded %s jobs" % len(jobs)
+    if DBG:
         print jobs
 
     for j in jobs.values():
@@ -21,7 +23,7 @@ if __name__ == '__main__':
         now = int(time())
         jname = j["job_name"] # is going to be used a lot, will avoid dict' lookups
         JOB_DATA_PATH = DATA_PATH + jname + "/"
-        if DBG:
+        if INFO:
             print "Job %s..." % jname
         
         lastrun_f_str = load_file(LAST_FULL_RUN_FILEPATH % jname)
@@ -90,20 +92,24 @@ if __name__ == '__main__':
                     args.extend(("-a", 'upto=%s' % lastrun_start))
 
                 res = execsh("./scrap", args)
-                if DBG:
-                    print "Result of scrapy execution:"
-                    print res
+                if INFO:
+                    print "\n\n ------------------- Result of scrapy execution: -------------- \n\n"
+                    print "------------ STDOUT... ---------- "
+                    print res[0]
+                    print "============ STDERR... ========== "
+                    print res[1]
                 # Process the data...
                 res = execsh("./process_data_for_job.py", [jname])
                 if res[1]:
                     # stderr was not empty, something went wrong
-                    print "Something went wrong during job data processing, here's the stderr:"
+                    print "\n\n ------------------------- Something went wrong during job data processing, here's the stderr: ------------------- \n\n"
                     print res[1]
+                    print "\n\n------------- And here is stdout: ----------------------\n\n"
                     unlock_job(jname)
                     exit(1)
-                if DBG:
-                    print "Result of job processing execution:"
-                    print res
+                if INFO:
+                    print "\n\n------------- -Result of job processing execution: ----------------\n\n"
+                    print res[0]
                 # Update the lastrun's value
                 write_file(lastrun_to_be_updated_fpath, str(int(time()))) # Using the job's end time
                 # Release job's lockfile

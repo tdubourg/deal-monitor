@@ -1,5 +1,6 @@
 #!/usr/bin/python
-DBG = True
+DBG = False
+INFO = True
 
 from utils.shell_utils import execute_shell_and_get_stdout
 from utils.json_utils import load_json, write_json
@@ -320,14 +321,14 @@ for item in items.values():
     except KeyError:
         existing_item = None
 
-    if DBG:
-        print "Item=", item
+    if INFO:
+        print "Item=", item["id"]
     for f in filters:
-        if DBG:
-            print "Applying filter=", f
+        if INFO:
+            print "\tApplying filter=", f
         if f.satisfies(item):
-            if DBG:
-                print "Item satisfies filter", f
+            if INFO:
+                print "\t\tItem satisfies filter", f
             if existing_item is not None: # This item was already inserted
                  # Did it change?
                  if existing_item != item:
