@@ -31,12 +31,6 @@ def fromJSON(data):
 				data[field[0]] = data[field[0]]
 		except KeyError:
 			data[field[0]] = field[2] # Default value
-                if self.data['contains'] is not None:
-                        try:
-                                self.contains_regexp = re.compile(self.data['contains'], re.MULTILINE | re.DOTALL)
-                        except:
-                                print "Error, regexp failed to compile"
-                                self.contains_regexp = None
 	return Filter(data)
 
 class Filter(object):
@@ -45,6 +39,12 @@ class Filter(object):
 		super(Filter, self).__init__()
 		self.data = data
 		self.name = data["name"]
+                if self.data['contains'] is not None:
+                        try:
+                                self.contains_regexp = re.compile(self.data['contains'], re.MULTILINE | re.DOTALL)
+                        except:
+                                print "Error, regexp failed to compile"
+                                self.contains_regexp = None
 	
 	def satisfies(self, item):
 		if ((self.data["min_price"] is None or item["price"] >= self.data["min_price"]) and
