@@ -9,6 +9,7 @@ from utils import lock_job, unlock_job, load_file, write_file
 from time import time
 DBG = False
 INFO = True
+LOCK_JOB_TIMEOUT = 50 # Currently 50 seconds as this script is run every minute
 
 if __name__ == '__main__':
     jobs = load_json(JOBS_INFO_FILEPATH)
@@ -52,7 +53,11 @@ if __name__ == '__main__':
                 if DBG:
                     print "Locking job from child process..."
                 
-                lock_job(jname)
+                locked = lock_job(jname, True, LOCK_JOB_TIMEOUT)
+                # If we did not manage to lock the file before the timeout, cancel current run
+                if locked is not True:
+                    print "Did not manage to lock the file before the timeout (", LOCK_JOB_TIMEOUT, "seconds)"
+                    exit(0)
                 
                 # This is happening! This job is kicking off, store this data in the appropriate file
                 # Note: This is then used by the partial spider, to know where to stop crawling
@@ -118,5 +123,5 @@ if __name__ == '__main__':
                 except OSError:
                     pass
         else:
-            if DBG:
+            if INFO:
                 print "Job's interval has not passed yet."
